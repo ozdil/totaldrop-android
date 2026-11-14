@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Isolated sub-platform x CPU architecture recipe manifest (ADR 0020).
+
+unit_id = "android-tv-apk-arm64-v8a"
+repository = "totaldrop-android"
+platform = "android"
+format = "tv-apk"
+arch = "arm64-v8a"
+version = "0.3.0-beta.6"
+rust_target = "aarch64-linux-android"
+runner = "ubuntu-latest"
+tag_prefix = "android-tv-apk-arm64-v8a-v"
+workflow = ".github/workflows/pkg-tv-apk-arm64-v8a.yml"
+delegate = "target-arm64-v8a/build-arm64-v8a.sh"
+artifact_name = "totaldrop-tv-0.3.0-beta.6-arm64-v8a.apk"
+spdx_license = "GPL-3.0-or-later"
+reproducible = true
+provenance = "sigstore-oidc"
+checksums_file = "SHA256SUMS"
+l10n_locales = 35

@@ -52,6 +52,8 @@ jobs:
         run: cargo test --workspace --locked
       - name: Validate ABI build script syntax
         run: bash -n target-*/*.sh
+      - name: Verify 10 isolated sub-platform x ABI units
+        run: python3 tools/verify-subplatforms.py
 
   android-abi-targets:
     name: Android ABI (${{ matrix.target }})
