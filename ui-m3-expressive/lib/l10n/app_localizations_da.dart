@@ -1,0 +1,685 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Danish (`da`).
+class AppLocalizationsDa extends AppLocalizations {
+  AppLocalizationsDa([String locale = 'da']) : super(locale);
+
+  @override
+  String get appTagline => 'Enhver fil, til alle, overalt.';
+
+  @override
+  String get homeSendTitle => 'Send';
+
+  @override
+  String get homeSendBody => 'Vælg filer, og del en kort kode';
+
+  @override
+  String get homeReceiveTitle => 'Modtag';
+
+  @override
+  String get homeReceiveBody => 'Indtast en kode, og gem filerne';
+
+  @override
+  String get homeFooter =>
+      'End-to-end-krypteret. Ingen konto, ingen e-mail, intet telefonnummer.';
+
+  @override
+  String get settings => 'Indstillinger';
+
+  @override
+  String get sendTitle => 'Send filer';
+
+  @override
+  String get sendAddFiles => 'Tilføj filer';
+
+  @override
+  String get sendEmpty => 'Intet valgt endnu';
+
+  @override
+  String get sendEmptyHint =>
+      'Tilføj de filer, du vil sende. Modtageren får præcis dem og intet andet.';
+
+  @override
+  String get sendStrongCode => 'Stærkere kode';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Tre ord i stedet for to: meget sværere at gætte';
+
+  @override
+  String get sendCreateCode => 'Opret kode';
+
+  @override
+  String get sendCounting => 'Tæller…';
+
+  @override
+  String get sendRemove => 'Fjern';
+
+  @override
+  String get sendPreparing => 'Forbereder dine filer…';
+
+  @override
+  String get sendAddFailed =>
+      'Filerne kunne ikke tilføjes. Prøv igen. Hvis det sker igen, så tjek, at der er nok ledig plads på denne enhed, eller vælg filerne et andet sted fra.';
+
+  @override
+  String get sendYourCode => 'Din kode';
+
+  @override
+  String get sendCodeHint =>
+      'Åbn TotalDrop på den anden enhed, tryk på Modtag, og indtast denne kode.';
+
+  @override
+  String get sendWaiting => 'Venter på modtageren…';
+
+  @override
+  String get sendCopy => 'Kopiér';
+
+  @override
+  String get sendCopied => 'Koden er kopieret';
+
+  @override
+  String get sendShare => 'Del';
+
+  @override
+  String sendShareText(String code) {
+    return 'Hent mine filer med TotalDrop. Kode: $code';
+  }
+
+  @override
+  String get sendSending => 'Sender';
+
+  @override
+  String get sendDone => 'Sendt og bekræftet';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Alle $countString filer kom frem i god behold.',
+      one: 'Filen kom frem i god behold.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString filer kom ikke frem i god behold og blev kasseret.',
+      one: 'Én fil kom ikke frem i god behold og blev kasseret.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString elementer',
+      one: '$countString element',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Modtag filer';
+
+  @override
+  String get receiveCodeLabel => 'Kode';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Bed afsenderen om koden.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Det ligner ikke en kode. Den starter med et tal efterfulgt af to eller tre ord.';
+
+  @override
+  String get receivePaste => 'Indsæt';
+
+  @override
+  String get receiveConnect => 'Opret forbindelse';
+
+  @override
+  String get receiveConnecting => 'Opretter sikker forbindelse…';
+
+  @override
+  String get receiveOffer => 'Indgående filer';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      files,
+      locale: localeName,
+      other: '$filesString filer',
+      one: '$filesString fil',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'og $countString mere';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Gemmes i $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Acceptér';
+
+  @override
+  String get receiveDecline => 'Afvis';
+
+  @override
+  String get receiveDeclined => 'Du afviste filerne.';
+
+  @override
+  String get receiveReceiving => 'Modtager';
+
+  @override
+  String get receiveDone => 'Modtaget og bekræftet';
+
+  @override
+  String get verificationTitle => 'Bekræftelsesord';
+
+  @override
+  String get verificationHint =>
+      'Den anden person ser de samme fire ord. Hvis de er forskellige, så stop.';
+
+  @override
+  String get sameNetworkNote =>
+      'Virker over internettet. Når enhederne ikke kan nå hinanden direkte, går den krypterede overførsel gennem relæserveren, som ikke kan læse den.';
+
+  @override
+  String get done => 'Færdig';
+
+  @override
+  String get tryAgain => 'Prøv igen';
+
+  @override
+  String get cancel => 'Annuller';
+
+  @override
+  String get cancelTransferTitle => 'Stop overførslen?';
+
+  @override
+  String get cancelTransferBody =>
+      'Den anden side får besked om, at overførslen blev stoppet.';
+
+  @override
+  String get keepGoing => 'Fortsæt';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get moreInfo => 'Detaljer';
+
+  @override
+  String get errorWrongCode =>
+      'Koden passede ikke. Den blev skrevet forkert, eller nogen forsøgte at opsnappe overførslen. Intet blev sendt. Start forfra med en ny kode.';
+
+  @override
+  String get errorPeerLeft =>
+      'Den anden side forlod forbindelsen, før overførslen var færdig.';
+
+  @override
+  String get errorDeclined => 'Modtageren afviste filerne.';
+
+  @override
+  String get errorCancelled => 'Den anden side stoppede overførslen.';
+
+  @override
+  String get errorStopped => 'Stoppet på denne enhed.';
+
+  @override
+  String get errorInvalidCode => 'Koden er ikke gyldig.';
+
+  @override
+  String get errorServer =>
+      'Kunne ikke nå TotalDrop-serveren. Tjek din internetforbindelse.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Koden er ikke i brug: den blev skrevet forkert, er udløbet eller er allerede brugt. Bed afsenderen om en ny.';
+
+  @override
+  String get errorCodeExpired =>
+      'Koden udløb, før nogen brugte den. Send igen for at få en ny kode.';
+
+  @override
+  String get errorBadServer =>
+      'Serveradressen er ikke gyldig. Den skal starte med wss://.';
+
+  @override
+  String get errorConnect =>
+      'Kunne ikke oprette forbindelse til den anden enhed. Tjek, at begge enheder er online, og prøv igen.';
+
+  @override
+  String get errorInvalidOffer =>
+      'Tilbuddet brød en sikkerhedsregel og blev afvist.';
+
+  @override
+  String get errorStorage => 'En fil kunne ikke læses eller gemmes.';
+
+  @override
+  String get errorOther => 'Noget gik galt.';
+
+  @override
+  String get causeTimedOut =>
+      'Forbindelsen holdt op med at svare. En af enhederne har måske mistet netværket eller er gået i dvale.';
+
+  @override
+  String get causeConnectionLost =>
+      'Forbindelsen til den anden enhed blev afbrudt.';
+
+  @override
+  String get causeNoRoute =>
+      'Den anden enhed kunne ikke nås, hverken direkte eller gennem relæserveren.';
+
+  @override
+  String get causeRelay =>
+      'Relæserveren kunne ikke nås eller er ikke sat op, eller de to enheder bruger ikke den samme.';
+
+  @override
+  String get causeProtocol =>
+      'Den anden enhed sendte noget, som denne version ikke forstår. Det kan hjælpe at opdatere TotalDrop på begge enheder.';
+
+  @override
+  String get causeDiskFull => 'Der er ikke nok ledig plads på denne enhed.';
+
+  @override
+  String get causeNoPermission =>
+      'TotalDrop har ikke lov til at læse eller skrive en fil eller mappe, den skal bruge.';
+
+  @override
+  String get causeNotFound =>
+      'En fil eller mappe blev ikke fundet. Den er måske flyttet eller slettet.';
+
+  @override
+  String get causeReadOnly =>
+      'Mappen ligger på en disk, der ikke kan skrives til.';
+
+  @override
+  String get causeFileChanged =>
+      'En fil ændrede sig, mens den blev sendt. Send den igen, når den er gemt.';
+
+  @override
+  String get technicalDetail =>
+      'Teknisk besked på engelsk, som du kan vedlægge, når du rapporterer et problem:';
+
+  @override
+  String get settingsServer => 'Mødeserver';
+
+  @override
+  String get settingsServerHelp =>
+      'Hjælper to enheder med samme kode med at finde hinanden. Den ser aldrig dine filer eller nøgler.';
+
+  @override
+  String get settingsServerReset => 'Brug standard';
+
+  @override
+  String get settingsServerInvalid => 'Skal starte med wss://';
+
+  @override
+  String get settingsSave => 'Gem';
+
+  @override
+  String get settingsAbout => 'Om';
+
+  @override
+  String get settingsAboutBody =>
+      'TotalDrop er gratis og open source og finansieres af donationer. Licens: GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Privatliv';
+
+  @override
+  String get settingsPrivacyBody =>
+      'Mødeserveren, relæserveren og Cloudflares STUN-server ser din IP-adresse, og det gør den anden enhed også, når I forbinder direkte (medmindre privatlivstilstand er slået til). Ingen af dem ser filnavne, indhold eller nøgler, og vores servere gemmer ingen logs. Filerne går direkte mellem enhederne, når det er muligt, ellers gennem relæserveren; de er end-to-end-krypterede i begge tilfælde.';
+
+  @override
+  String get privacyMode => 'Skjul min adresse for den anden enhed';
+
+  @override
+  String get privacyModeHint =>
+      'Privatlivstilstand: alt går gennem relæserveren, så den anden enhed aldrig får din IP-adresse at vide. Langsommere, og den anden enhed skal bruge samme relæserver (det gør standardserveren).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Slå privatlivstilstand til?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'Overførsler bliver langsommere, fordi intet går direkte mellem enhederne. Mødeserveren og relæserveren ser stadig din IP-adresse; de ser aldrig dine filer eller nøgler.';
+
+  @override
+  String get privacyModeTurnOn => 'Slå til';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Denne oversættelse er ved at blive gennemgået. Hjælp med at forbedre den på GitHub.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Koder og bekræftelsesord er altid på engelsk, så to enheder på forskellige sprog viser de samme ord.';
+
+  @override
+  String get sendDropHere => 'Slip filer her';
+
+  @override
+  String get sendDropHint => 'Du kan også trække filer over i dette vindue.';
+
+  @override
+  String get keepAwakeReason => 'TotalDrop sender eller modtager filer';
+
+  @override
+  String get sendQrHint => 'Eller scan koden med den anden enheds kamera.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Tjek ordene, og vent så på, at modtageren accepterer.';
+
+  @override
+  String get receiveFromImage => 'Læs QR-kode fra billede';
+
+  @override
+  String get receiveQrNotFound => 'Der er ingen TotalDrop-kode i billedet.';
+
+  @override
+  String get pickTitle => 'Vælg filer, der skal sendes';
+
+  @override
+  String get pickImageTitle => 'Vælg et billede med en QR-kode';
+
+  @override
+  String get openFolder => 'Åbn mappe';
+
+  @override
+  String get back => 'Tilbage';
+
+  @override
+  String get codeSuggestions => 'Forslag';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString %';
+  }
+
+  @override
+  String get editUndo => 'Fortryd';
+
+  @override
+  String get editRedo => 'Annuller fortryd';
+
+  @override
+  String get editCut => 'Klip';
+
+  @override
+  String get editCopy => 'Kopiér';
+
+  @override
+  String get editPaste => 'Indsæt';
+
+  @override
+  String get editDelete => 'Slet';
+
+  @override
+  String get editSelectAll => 'Markér alt';
+
+  @override
+  String get transferNoticeChannel => 'Overførsler';
+
+  @override
+  String get transferNoticeSending => 'Sender med TotalDrop';
+
+  @override
+  String get transferNoticeReceiving => 'Modtager med TotalDrop';
+
+  @override
+  String get transferNoticeBody => 'Fortsætter, mens du bruger andre apps.';
+
+  @override
+  String get shareBusy =>
+      'En overførsel kører stadig. Vent, til den er færdig, eller stop den, og del så igen.';
+
+  @override
+  String get linkBusy =>
+      'Gør det færdigt, der er på skærmen, eller stop det, og åbn så linket igen.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count delte elementer kunne ikke læses og blev udeladt.',
+      one: 'Ét delt element kunne ikke læses og blev udeladt.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Filoverførsel';
+
+  @override
+  String get desktopComment =>
+      'Send filer direkte til en anden enhed, end-to-end-krypteret';
+
+  @override
+  String get desktopKeywords => 'send;modtag;del;overfør;filer;';
+
+  @override
+  String get desktopSendWith => 'Send med TotalDrop';
+
+  @override
+  String get metainfoSummary => 'Send filer direkte til en anden enhed';
+
+  @override
+  String get metainfoAbout =>
+      'TotalDrop sender filer og mapper fra én enhed til en anden, end-to-end-krypteret. Vælg filerne, del en kort kode eller en QR-kode, og den anden enhed modtager dem. Ingen konto, ingen e-mail, intet telefonnummer.';
+
+  @override
+  String get metainfoVerified =>
+      'Hver fil kontrolleres ved ankomst; beskadigede filer kasseres';
+
+  @override
+  String get metainfoWords =>
+      'Fire bekræftelsesord viser, at ingen står imellem jer';
+
+  @override
+  String get metainfoTheme =>
+      'Følger dit skrivebords tema: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Brug én Linux-pakke ad gangen. Flatpak-pakken og .pkg-, .deb- eller .rpm-pakken deler ét navn, så mens den ene er åben, bringer start af den anden det åbne vindue frem i stedet for at åbne et nyt.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'TotalDrop er allerede åben fra Flatpak, så det vindue blev bragt frem. Brug én pakke ad gangen: luk det vindue for at åbne denne.';
+
+  @override
+  String get otherPackageSystem =>
+      'TotalDrop er allerede åben fra .pkg-, .deb- eller .rpm-pakken, så det vindue blev bragt frem. Brug én pakke ad gangen: luk det vindue for at åbne denne.';
+
+  @override
+  String get sendText => 'Send tekst';
+
+  @override
+  String get sendTextHint => 'Skriv eller indsæt teksten, der skal sendes';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'En tekst kan højst fylde $size. Send en længere tekst som fil.';
+  }
+
+  @override
+  String get sendTextDone => 'Teksten kom frem i god behold.';
+
+  @override
+  String get sendClipboard => 'Send udklipsholder';
+
+  @override
+  String get sendClipboardEmpty => 'Udklipsholderen indeholder ingen tekst.';
+
+  @override
+  String get receiveOfferText => 'Indgående tekst';
+
+  @override
+  String get receiveOfferTextNote => 'Teksten vises her og gemmes ikke.';
+
+  @override
+  String get receiveTextDone => 'Tekst modtaget og bekræftet';
+
+  @override
+  String get receiveTextDeclined => 'Du afviste teksten.';
+
+  @override
+  String get receiveTextHidden =>
+      'Teksten indeholder skjulte tegn, som vises som U+…. Når du kopierer, får du teksten præcis, som den kom.';
+
+  @override
+  String get sendTextHidden =>
+      'Teksten indeholder skjulte tegn, f.eks. retningsmærker. De sendes med.';
+
+  @override
+  String get sendClipboardKept =>
+      'Den skrevne tekst er bevaret; udklipsholderen blev ikke brugt.';
+
+  @override
+  String get sendTextShortened =>
+      'Kun begyndelsen af teksten vises; hele teksten sendes.';
+
+  @override
+  String get receiveTextShortened =>
+      'Kun begyndelsen af teksten vises. Kopiér tekst kopierer det hele.';
+
+  @override
+  String get copyText => 'Kopiér tekst';
+
+  @override
+  String get textCopied => 'Tekst kopieret';
+
+  @override
+  String get errorTextDamaged =>
+      'Teksten kom ikke frem i god behold, så den vises ikke.';
+
+  @override
+  String get setupBackgroundTitle => 'Hold overførsler i gang i baggrunden';
+
+  @override
+  String get setupBackgroundBody =>
+      'For at en overførsel fortsætter, når du skifter app eller låser skærmen, skal TotalDrop have lov til at køre uden batteribegrænsninger. TotalDrop arbejder kun i baggrunden, mens en overførsel, du har startet, kører.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'Androids batterioptimering er slået fra for TotalDrop.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'Androids batterioptimering er slået til for TotalDrop: en overførsel kan stoppe, når du skifter app.';
+
+  @override
+  String get setupBackgroundBattery => 'Åbn batteriindstillinger';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Åbn Batteri på TotalDrops appinfoside, og tillad ubegrænset brug. Navnene på disse indstillinger varierer fra telefon til telefon.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return '$maker-telefoner har deres egen batterisparer';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Åbn også TotalDrops batterisparer, og vælg \"Ingen begrænsninger\". Hvis telefonen har Autostart, så slå det til for TotalDrop.';
+
+  @override
+  String get setupBackgroundMakerOpen => 'Åbn TotalDrops batterisparer';
+
+  @override
+  String get setupBackgroundAutostart => 'Åbn Autostart';
+
+  @override
+  String get setupBackgroundSkip => 'Ikke nu';
+
+  @override
+  String get settingsBackground => 'Overførsler i baggrunden';
+
+  @override
+  String get settingsBackgroundOpen => 'Batteriindstillinger';
+}

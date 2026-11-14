@@ -1,0 +1,30 @@
+# Rust build outputs
+/target
+
+# Distribution and per-ABI build outputs
+/dist/
+/target-arm64-v8a/out/
+/target-arm64-v8a/work/
+/target-armeabi-v7a/out/
+/target-armeabi-v7a/work/
+/target-x86_64/out/
+/target-x86_64/work/
+
+# Android TV Gradle and IDE artifacts
+/ui-android-tv/.gradle/
+/ui-android-tv/build/
+/ui-android-tv/local.properties
+/ui-android-tv/key.properties
+/ui-android-tv/src/main/jniLibs/
+
+# Signing keys and built packages
+*.jks
+*.keystore
+*.apk
+*.aab
+
+# Editor and OS files
+*.swp
+.DS_Store
+__pycache__/
+*.pyc

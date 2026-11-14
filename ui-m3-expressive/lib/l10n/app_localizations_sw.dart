@@ -1,0 +1,682 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Swahili (`sw`).
+class AppLocalizationsSw extends AppLocalizations {
+  AppLocalizationsSw([String locale = 'sw']) : super(locale);
+
+  @override
+  String get appTagline => 'Faili yoyote, kwa yeyote, popote.';
+
+  @override
+  String get homeSendTitle => 'Tuma';
+
+  @override
+  String get homeSendBody => 'Chagua faili na ushiriki msimbo mfupi';
+
+  @override
+  String get homeReceiveTitle => 'Pokea';
+
+  @override
+  String get homeReceiveBody => 'Weka msimbo na uhifadhi faili';
+
+  @override
+  String get homeFooter =>
+      'Imesimbwa fiche kutoka mwanzo hadi mwisho. Hakuna akaunti, barua pepe wala nambari ya simu.';
+
+  @override
+  String get settings => 'Mipangilio';
+
+  @override
+  String get sendTitle => 'Tuma faili';
+
+  @override
+  String get sendAddFiles => 'Ongeza faili';
+
+  @override
+  String get sendEmpty => 'Bado hujachagua chochote';
+
+  @override
+  String get sendEmptyHint =>
+      'Ongeza faili unazotaka kutuma. Mpokeaji anapata hizi tu, hakuna kingine.';
+
+  @override
+  String get sendStrongCode => 'Msimbo imara zaidi';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Maneno matatu badala ya mawili: ni vigumu zaidi kukisia';
+
+  @override
+  String get sendCreateCode => 'Unda msimbo';
+
+  @override
+  String get sendCounting => 'Inahesabu…';
+
+  @override
+  String get sendRemove => 'Ondoa';
+
+  @override
+  String get sendPreparing => 'Inaandaa faili zako…';
+
+  @override
+  String get sendAddFailed =>
+      'Faili hazikuweza kuongezwa. Jaribu tena. Ikitokea tena, hakikisha kuna nafasi ya kutosha kwenye kifaa hiki, au uchague faili kutoka mahali pengine.';
+
+  @override
+  String get sendYourCode => 'Msimbo wako';
+
+  @override
+  String get sendCodeHint =>
+      'Kwenye kifaa kingine, fungua TotalDrop, gusa Pokea kisha uweke msimbo huu.';
+
+  @override
+  String get sendWaiting => 'Inamsubiri mpokeaji…';
+
+  @override
+  String get sendCopy => 'Nakili';
+
+  @override
+  String get sendCopied => 'Msimbo umenakiliwa';
+
+  @override
+  String get sendShare => 'Shiriki';
+
+  @override
+  String sendShareText(String code) {
+    return 'Pokea faili zangu kwa TotalDrop. Msimbo: $code';
+  }
+
+  @override
+  String get sendSending => 'Inatuma';
+
+  @override
+  String get sendDone => 'Imetumwa na kuthibitishwa';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Faili zote $countString zimefika zikiwa salama.',
+      one: 'Faili imefika ikiwa salama.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Faili $countString hazikufika zikiwa salama na zimetupwa.',
+      one: 'Faili moja haikufika ikiwa salama na imetupwa.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'vipengee $countString',
+      one: 'kipengee $countString',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Pokea faili';
+
+  @override
+  String get receiveCodeLabel => 'Msimbo';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Mwombe mtumaji msimbo wake.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Hii haionekani kama msimbo. Msimbo huanza na nambari, kisha maneno mawili au matatu.';
+
+  @override
+  String get receivePaste => 'Bandika';
+
+  @override
+  String get receiveConnect => 'Unganisha';
+
+  @override
+  String get receiveConnecting => 'Inaunganisha kwa usalama…';
+
+  @override
+  String get receiveOffer => 'Faili zinazoingia';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    return 'faili $filesString · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'na $countString zaidi';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Zimehifadhiwa kwenye $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Kubali';
+
+  @override
+  String get receiveDecline => 'Kataa';
+
+  @override
+  String get receiveDeclined => 'Umekataa faili.';
+
+  @override
+  String get receiveReceiving => 'Inapokea';
+
+  @override
+  String get receiveDone => 'Imepokelewa na kuthibitishwa';
+
+  @override
+  String get verificationTitle => 'Maneno ya uthibitisho';
+
+  @override
+  String get verificationHint =>
+      'Mtu mwingine anaona maneno manne yale yale. Yakitofautiana, simama.';
+
+  @override
+  String get sameNetworkNote =>
+      'Inafanya kazi kupitia intaneti. Vifaa visipoweza kufikiana moja kwa moja, uhamishaji uliosimbwa fiche hupita kupitia seva ya kati, ambayo haiwezi kuusoma.';
+
+  @override
+  String get done => 'Nimemaliza';
+
+  @override
+  String get tryAgain => 'Jaribu tena';
+
+  @override
+  String get cancel => 'Ghairi';
+
+  @override
+  String get cancelTransferTitle => 'Simamisha uhamishaji huu?';
+
+  @override
+  String get cancelTransferBody =>
+      'Upande mwingine utaarifiwa kuwa uhamishaji umesimamishwa.';
+
+  @override
+  String get keepGoing => 'Endelea';
+
+  @override
+  String get stop => 'Simamisha';
+
+  @override
+  String get moreInfo => 'Maelezo';
+
+  @override
+  String get errorWrongCode =>
+      'Msimbo haukulingana. Ulikosewa kuandikwa, au mtu alijaribu kunasa uhamishaji. Hakuna kilichotumwa. Anza tena kwa msimbo mpya.';
+
+  @override
+  String get errorPeerLeft =>
+      'Upande mwingine uliondoka kabla uhamishaji haujakamilika.';
+
+  @override
+  String get errorDeclined => 'Mpokeaji amekataa faili.';
+
+  @override
+  String get errorCancelled => 'Upande mwingine umesimamisha uhamishaji.';
+
+  @override
+  String get errorStopped => 'Imesimamishwa kwenye kifaa hiki.';
+
+  @override
+  String get errorInvalidCode => 'Msimbo huo si sahihi.';
+
+  @override
+  String get errorServer =>
+      'Imeshindwa kufikia seva ya TotalDrop. Angalia muunganisho wako wa intaneti.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Msimbo huo hautumiki: ulikosewa kuandikwa, umeisha muda au tayari umetumika. Mwombe mtumaji msimbo mpya.';
+
+  @override
+  String get errorCodeExpired =>
+      'Msimbo uliisha muda kabla ya mtu yeyote kuutumia. Tuma tena ili upate msimbo mpya.';
+
+  @override
+  String get errorBadServer =>
+      'Anwani ya seva si sahihi. Lazima ianze na wss://.';
+
+  @override
+  String get errorConnect =>
+      'Imeshindwa kuunganisha na kifaa kingine. Hakikisha vifaa vyote viwili viko mtandaoni kisha ujaribu tena.';
+
+  @override
+  String get errorInvalidOffer =>
+      'Ofa ilivunja kanuni ya usalama, kwa hiyo imekataliwa.';
+
+  @override
+  String get errorStorage => 'Faili moja haikuweza kusomwa au kuhifadhiwa.';
+
+  @override
+  String get errorOther => 'Hitilafu fulani imetokea.';
+
+  @override
+  String get causeTimedOut =>
+      'Muunganisho uliacha kujibu. Huenda mojawapo ya vifaa lilipoteza mtandao au lilienda usingizini.';
+
+  @override
+  String get causeConnectionLost => 'Muunganisho na kifaa kingine ulikatika.';
+
+  @override
+  String get causeNoRoute =>
+      'Kifaa kingine hakikufikiwa, si moja kwa moja wala kupitia seva ya kati.';
+
+  @override
+  String get causeRelay =>
+      'Seva ya kati haikufikiwa au haijawekwa, au vifaa hivi viwili havitumii seva moja.';
+
+  @override
+  String get causeProtocol =>
+      'Kifaa kingine kilituma kitu ambacho toleo hili halikielewi. Kusasisha TotalDrop kwenye vifaa vyote viwili kunaweza kusaidia.';
+
+  @override
+  String get causeDiskFull => 'Hakuna nafasi ya kutosha kwenye kifaa hiki.';
+
+  @override
+  String get causeNoPermission =>
+      'TotalDrop hairuhusiwi kusoma au kuandika faili au folda inayohitaji.';
+
+  @override
+  String get causeNotFound =>
+      'Faili au folda haikupatikana. Huenda ilihamishwa au kufutwa.';
+
+  @override
+  String get causeReadOnly => 'Folda iko kwenye diski isiyoweza kuandikwa.';
+
+  @override
+  String get causeFileChanged =>
+      'Faili ilibadilika ilipokuwa ikitumwa. Itume tena baada ya kuihifadhi.';
+
+  @override
+  String get technicalDetail =>
+      'Ujumbe wa kiufundi kwa Kiingereza, wa kuambatisha unaporipoti tatizo:';
+
+  @override
+  String get settingsServer => 'Seva ya kukutanisha';
+
+  @override
+  String get settingsServerHelp =>
+      'Husaidia vifaa viwili vyenye msimbo mmoja kupatana. Haioni kamwe faili au funguo zako.';
+
+  @override
+  String get settingsServerReset => 'Tumia chaguomsingi';
+
+  @override
+  String get settingsServerInvalid => 'Lazima ianze na wss://';
+
+  @override
+  String get settingsSave => 'Hifadhi';
+
+  @override
+  String get settingsAbout => 'Kuhusu';
+
+  @override
+  String get settingsAboutBody =>
+      'TotalDrop ni bure na ya chanzo huria, inayofadhiliwa kwa michango. Leseni GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Faragha';
+
+  @override
+  String get settingsPrivacyBody =>
+      'Seva ya kukutanisha, seva ya kati na seva ya STUN ya Cloudflare huona anwani yako ya IP, na kifaa kingine pia huiona mnapounganishwa moja kwa moja (isipokuwa hali ya faragha imewashwa). Hakuna kati yao anayeona majina ya faili, maudhui au funguo, na seva zetu hazihifadhi kumbukumbu. Faili husafiri moja kwa moja kati ya vifaa inapowezekana, vinginevyo kupitia seva ya kati; kwa njia zote mbili zimesimbwa fiche kutoka mwanzo hadi mwisho.';
+
+  @override
+  String get privacyMode => 'Ficha anwani yangu kwa kifaa kingine';
+
+  @override
+  String get privacyModeHint =>
+      'Hali ya faragha: kila kitu hupita kupitia seva ya kati, kwa hiyo kifaa kingine hakijui kamwe anwani yako ya IP. Ni polepole zaidi, na kifaa kingine lazima kitumie seva ya kati ile ile (ile ya chaguomsingi inafaa).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Washa hali ya faragha?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'Uhamishaji utakuwa wa polepole zaidi, kwa sababu hakuna kinachopita moja kwa moja kati ya vifaa. Seva ya kukutanisha na seva ya kati bado huona anwani yako ya IP; hazioni kamwe faili au funguo zako.';
+
+  @override
+  String get privacyModeTurnOn => 'Washa';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Toleo $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Tafsiri hii inakaguliwa. Saidia kuiboresha kwenye GitHub.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Misimbo na maneno ya uthibitisho huwa kwa Kiingereza katika kila lugha, ili vifaa viwili vyenye lugha tofauti vionyeshe maneno yale yale.';
+
+  @override
+  String get sendDropHere => 'Dondosha faili hapa';
+
+  @override
+  String get sendDropHint =>
+      'Unaweza pia kuburuta faili hadi kwenye dirisha hili.';
+
+  @override
+  String get keepAwakeReason => 'TotalDrop inatuma au kupokea faili';
+
+  @override
+  String get sendQrHint =>
+      'Au changanua msimbo huu kwa kamera ya kifaa kingine.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Linganisha maneno, kisha subiri mpokeaji akubali.';
+
+  @override
+  String get receiveFromImage => 'Soma QR kutoka kwenye picha';
+
+  @override
+  String get receiveQrNotFound =>
+      'Hakuna msimbo wa TotalDrop kwenye picha hiyo.';
+
+  @override
+  String get pickTitle => 'Chagua faili za kutuma';
+
+  @override
+  String get pickImageTitle => 'Chagua picha yenye msimbo wa QR';
+
+  @override
+  String get openFolder => 'Fungua folda';
+
+  @override
+  String get back => 'Rudi';
+
+  @override
+  String get codeSuggestions => 'Mapendekezo';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString%';
+  }
+
+  @override
+  String get editUndo => 'Tendua';
+
+  @override
+  String get editRedo => 'Rudia';
+
+  @override
+  String get editCut => 'Kata';
+
+  @override
+  String get editCopy => 'Nakili';
+
+  @override
+  String get editPaste => 'Bandika';
+
+  @override
+  String get editDelete => 'Futa';
+
+  @override
+  String get editSelectAll => 'Chagua zote';
+
+  @override
+  String get transferNoticeChannel => 'Uhamishaji';
+
+  @override
+  String get transferNoticeSending => 'Inatuma kwa TotalDrop';
+
+  @override
+  String get transferNoticeReceiving => 'Inapokea kwa TotalDrop';
+
+  @override
+  String get transferNoticeBody => 'Inaendelea unapotumia programu nyingine.';
+
+  @override
+  String get shareBusy =>
+      'Uhamishaji bado unaendelea. Subiri umalizike au uusimamishe, kisha shiriki tena.';
+
+  @override
+  String get linkBusy =>
+      'Maliza au simamisha kilicho kwenye skrini, kisha fungua kiungo tena.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Vipengee $count vilivyoshirikiwa havikuweza kusomwa na vimeachwa.',
+      one: 'Kipengee kimoja kilichoshirikiwa hakikuweza kusomwa na kimeachwa.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Uhamishaji wa faili';
+
+  @override
+  String get desktopComment =>
+      'Tuma faili moja kwa moja kwenye kifaa kingine, zimesimbwa mwanzo hadi mwisho';
+
+  @override
+  String get desktopKeywords => 'tuma;pokea;shiriki;hamisha;faili;';
+
+  @override
+  String get desktopSendWith => 'Tuma kwa TotalDrop';
+
+  @override
+  String get metainfoSummary => 'Tuma faili moja kwa moja kwenye kifaa kingine';
+
+  @override
+  String get metainfoAbout =>
+      'TotalDrop hutuma faili na folda kutoka kifaa kimoja hadi kingine, zimesimbwa mwanzo hadi mwisho. Chagua faili, shiriki msimbo mfupi au msimbo wa QR, na kifaa kingine kitazipokea. Hakuna akaunti, barua pepe wala nambari ya simu.';
+
+  @override
+  String get metainfoVerified =>
+      'Kila faili huthibitishwa inapofika; faili zilizoharibika hutupwa';
+
+  @override
+  String get metainfoWords =>
+      'Maneno manne ya uthibitisho yanaonyesha kwamba hakuna mtu katikati';
+
+  @override
+  String get metainfoTheme =>
+      'Hufuata mandhari ya eneo-kazi lako: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Tumia kifurushi kimoja cha Linux kwa wakati mmoja. Flatpak na kifurushi cha .pkg, .deb au .rpm vinashiriki jina moja, kwa hivyo kimoja kikiwa wazi, kuanzisha kingine huleta dirisha lililo wazi mbele badala ya kufungua dirisha la pili.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'TotalDrop tayari iko wazi kutoka Flatpak, kwa hivyo dirisha hilo limeletwa mbele. Tumia kifurushi kimoja kwa wakati mmoja: funga dirisha hilo ili kufungua hiki.';
+
+  @override
+  String get otherPackageSystem =>
+      'TotalDrop tayari iko wazi kutoka kifurushi cha .pkg, .deb au .rpm, kwa hivyo dirisha hilo limeletwa mbele. Tumia kifurushi kimoja kwa wakati mmoja: funga dirisha hilo ili kufungua hiki.';
+
+  @override
+  String get sendText => 'Tuma maandishi';
+
+  @override
+  String get sendTextHint => 'Andika au bandika maandishi ya kutuma';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Maandishi yanaweza kuwa hadi $size tu. Tuma maandishi marefu zaidi kama faili.';
+  }
+
+  @override
+  String get sendTextDone => 'Maandishi yamefika yakiwa kamili.';
+
+  @override
+  String get sendClipboard => 'Tuma ubao wa kunakili';
+
+  @override
+  String get sendClipboardEmpty => 'Ubao wa kunakili hauna maandishi.';
+
+  @override
+  String get receiveOfferText => 'Maandishi yanayoingia';
+
+  @override
+  String get receiveOfferTextNote =>
+      'Maandishi yanaonyeshwa hapa, hayahifadhiwi.';
+
+  @override
+  String get receiveTextDone => 'Maandishi yamepokelewa na kuthibitishwa';
+
+  @override
+  String get receiveTextDeclined => 'Umekataa maandishi.';
+
+  @override
+  String get receiveTextHidden =>
+      'Maandishi yana herufi zilizofichwa, zinazoonyeshwa kama U+…. Ukinakili, unapata maandishi kama yalivyofika.';
+
+  @override
+  String get sendTextHidden =>
+      'Maandishi yana herufi zilizofichwa, kama alama za mwelekeo. Zinatumwa pamoja nayo.';
+
+  @override
+  String get sendClipboardKept =>
+      'Maandishi yaliyokwisha andikwa yamebaki; ubao wa kunakili haukutumika.';
+
+  @override
+  String get sendTextShortened =>
+      'Mwanzo wa maandishi pekee unaonyeshwa; yote yanatumwa.';
+
+  @override
+  String get receiveTextShortened =>
+      'Mwanzo wa maandishi pekee unaonyeshwa. Nakili maandishi inanakili yote.';
+
+  @override
+  String get copyText => 'Nakili maandishi';
+
+  @override
+  String get textCopied => 'Maandishi yamenakiliwa';
+
+  @override
+  String get errorTextDamaged =>
+      'Maandishi hayakufika yakiwa kamili, kwa hiyo hayaonyeshwi.';
+
+  @override
+  String get setupBackgroundTitle => 'Uhamisho uendelee chinichini';
+
+  @override
+  String get setupBackgroundBody =>
+      'Ili uhamisho uendelee unapobadilisha programu au kufunga skrini, ruhusu TotalDrop ifanye kazi bila vikwazo vya betri. TotalDrop hufanya kazi chinichini tu wakati uhamisho ulioanzisha wewe unaendelea.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'Uboreshaji wa betri wa Android umezimwa kwa TotalDrop.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'Uboreshaji wa betri wa Android umewashwa kwa TotalDrop: uhamisho unaweza kusimama unapobadilisha programu.';
+
+  @override
+  String get setupBackgroundBattery => 'Fungua mipangilio ya betri';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Kwenye ukurasa wa maelezo ya programu ya TotalDrop, fungua Betri na uruhusu matumizi bila vikwazo. Majina ya mipangilio hii hutofautiana kati ya simu.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return 'Simu za $maker zina kiokoa betri chake';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Fungua pia kiokoa betri cha TotalDrop na uchague \"Hakuna vikwazo\". Ikiwa simu ina Kuanza kiotomatiki, kiwashe kwa TotalDrop.';
+
+  @override
+  String get setupBackgroundMakerOpen => 'Fungua kiokoa betri cha TotalDrop';
+
+  @override
+  String get setupBackgroundAutostart => 'Fungua Kuanza kiotomatiki';
+
+  @override
+  String get setupBackgroundSkip => 'Si sasa';
+
+  @override
+  String get settingsBackground => 'Uhamisho chinichini';
+
+  @override
+  String get settingsBackgroundOpen => 'Mipangilio ya betri';
+}

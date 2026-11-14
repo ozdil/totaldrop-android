@@ -1,0 +1,763 @@
+// SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+//! The Dart-facing API of TotalDrop, generated into Dart by
+//! flutter_rust_bridge. Everything here is a thin layer over
+//! `totaldrop-core`; no protocol logic lives in this file.
+//!
+//! Types are kept plain (structs and fieldless enums, `i64` numbers) so the
+//! generated Dart needs no extra code generators.
+
+use std::path::PathBuf;
+use std::sync::{Arc, LazyLock, Mutex};
+
+use flutter_rust_bridge::frb;
+use totaldrop_core::{
+    Event, IncomingOffer, PathOptions, PreparedSend, ReceiveOptions, SendOptions, Stop,
+};
+
+use crate::frb_generated::StreamSink;
+
+/// One runtime for all network work, independent of how the bridge runs
+/// its own async functions.
+static RUNTIME: LazyLock<tokio::runtime::Runtime> = LazyLock::new(|| {
+    tokio::runtime::Builder::new_multi_thread()
+        .worker_threads(2)
+        .enable_all()
+        .thread_name("totaldrop")
+        .build()
+        .unwrap_or_else(|_| std::process::abort())
+});
+
+async fn on_runtime<F, T>(fut: F) -> Result<T, TransferError>
+where
+    F: std::future::Future<Output = Result<T, TransferError>> + Send + 'static,
+    T: Send + 'static,
+{
+    RUNTIME
+        .spawn(fut)
+        .await
+        .unwrap_or_else(|_| Err(TransferError::other("internal task failed")))
+}
+
+/// Stops one transfer, at any stage: preparing, waiting, connecting or
+/// moving files. Dart makes one per transfer and passes it to every call
+/// of that transfer. Once the session is up, the other side is told and
+/// sees "the other side stopped"; partial files are removed.
+#[frb(opaque)]
+pub struct Stopper {
+    stop: Stop,
+}
+
+/// A new, unstopped stopper.
+#[frb(sync)]
+pub fn new_stopper() -> Stopper {
+    Stopper { stop: Stop::new() }
+}
+
+/// Stop the transfer `stopper` belongs to. Safe to call more than once,
+/// and before the transfer starts.
+#[frb(sync)]
+pub fn stop_transfer(stopper: &Stopper) {
+    stopper.stop.stop();
+}
+
+fn stopped() -> TransferError {
+    TransferError::from(totaldrop_core::Error::Stopped)
+}
+
+fn n(v: usize) -> i64 {
+    i64::try_from(v).unwrap_or(i64::MAX)
+}
+
+fn b(v: u64) -> i64 {
+    i64::try_from(v).unwrap_or(i64::MAX)
+}
+
+/// The default rendezvous server.
+#[frb(sync)]
+pub fn default_server() -> String {
+    totaldrop_core::rendezvous::DEFAULT_SERVER.to_owned()
+}
+
+/// Kinds of failure. Dart shows a translated message for each.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ErrorKind {
+    /// The code did not match: mistyped, or someone tried to intercept.
+    WrongCode,
+    /// The other side left.
+    PeerLeft,
+    /// The receiver declined.
+    Declined,
+    /// The other side cancelled.
+    Cancelled,
+    /// Stopped on this device.
+    Stopped,
+    /// The code could not be read.
+    InvalidCode,
+    /// The server says no sender uses the code: mistyped, expired or used.
+    CodeNotInUse,
+    /// Nobody used the sender's code before it expired.
+    CodeExpired,
+    /// The rendezvous server address in the settings is not valid.
+    BadServer,
+    /// The rendezvous server could not be reached or refused.
+    Server,
+    /// No network path to the other device worked.
+    Connect,
+    /// The offer broke a safety rule.
+    InvalidOffer,
+    /// A local file problem.
+    Storage,
+    /// A text failed its check or is not valid text, so it is not shown
+    /// (#326).
+    TextDamaged,
+    /// Anything else.
+    Other,
+}
+
+/// Why a transfer ended.
+#[derive(Debug, Clone)]
+pub struct TransferError {
+    /// What went wrong.
+    pub kind: ErrorKind,
+    /// Technical detail, in English, for "more information".
+    pub detail: String,
+    /// Why, as a name Dart translates (`cause` + this, e.g. `TimedOut`);
+    /// empty when the headline says it all (#212).
+    pub cause: String,
+}
+
+impl TransferError {
+    fn other(detail: &str) -> Self {
+        Self {
+            kind: ErrorKind::Other,
+            detail: detail.to_owned(),
+            cause: String::new(),
+        }
+    }
+}
+
+impl From<totaldrop_core::Error> for TransferError {
+    fn from(e: totaldrop_core::Error) -> Self {
+        use totaldrop_core::Error as E;
+        let detail = e.to_string();
+        let cause = e.cause().as_str().to_owned();
+        let kind = match e {
+            E::WrongCode => ErrorKind::WrongCode,
+            E::PeerLeft => ErrorKind::PeerLeft,
+            E::Rejected(_) => ErrorKind::Declined,
+            E::Cancelled(_) => ErrorKind::Cancelled,
+            E::Stopped => ErrorKind::Stopped,
+            E::Code(_) => ErrorKind::InvalidCode,
+            E::Rendezvous(_) if e.is_bad_server_address() => ErrorKind::BadServer,
+            E::Rendezvous(_) => ErrorKind::Server,
+            E::Connect(_) => ErrorKind::Connect,
+            E::InvalidOffer(_) => ErrorKind::InvalidOffer,
+            E::Io(_) => ErrorKind::Storage,
+            _ => ErrorKind::Other,
+        };
+        Self {
+            kind,
+            detail,
+            cause,
+        }
+    }
+}
+
+impl TransferError {
+    /// An error while the receiver connects with the code. Only there does
+    /// "no sender uses this code" mean the code: a sender whose code
+    /// expired unused hears the same from the server.
+    fn on_connect(e: totaldrop_core::Error) -> Self {
+        if e.is_code_not_in_use() {
+            Self {
+                kind: ErrorKind::CodeNotInUse,
+                ..e.into()
+            }
+        } else {
+            e.into()
+        }
+    }
+
+    /// An error while the sender waits and sends. What the server says when
+    /// no sender uses a code reaches the sender only from the waiting step,
+    /// when its own code expired with nobody coming.
+    fn on_send(e: totaldrop_core::Error) -> Self {
+        if e.is_code_not_in_use() {
+            Self {
+                kind: ErrorKind::CodeExpired,
+                ..e.into()
+            }
+        } else {
+            e.into()
+        }
+    }
+}
+
+/// Summary of a finished transfer.
+#[derive(Debug, Clone, Default)]
+pub struct TransferSummary {
+    /// Files verified on arrival.
+    pub files_ok: i64,
+    /// Files discarded because they did not arrive intact.
+    pub files_failed: i64,
+    /// Bytes moved.
+    pub bytes: i64,
+    /// Where the receiver saved the top-level items (empty for the sender).
+    pub saved: Vec<String>,
+    /// A text received in memory, exactly as it came ([`accept_text`]).
+    pub text: Option<String>,
+}
+
+/// Kinds of progress event.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EventKind {
+    /// Waiting for the receiver.
+    Waiting,
+    /// The secure session is up; `words` holds the verification words.
+    Connected,
+    /// `done` of `total` bytes have moved.
+    Progress,
+    /// Finished; `summary` is set. Always the last event on success.
+    Finished,
+    /// Failed; `error` is set. Always the last event on failure.
+    Failed,
+}
+
+/// Something that happened during a transfer.
+#[derive(Debug, Clone)]
+pub struct TransferEvent {
+    /// What happened.
+    pub kind: EventKind,
+    /// Verification words, for `Connected`.
+    pub words: Vec<String>,
+    /// Bytes done, for `Progress`.
+    pub done: i64,
+    /// Bytes in total, for `Progress`.
+    pub total: i64,
+    /// For `Finished`.
+    pub summary: Option<TransferSummary>,
+    /// For `Failed`.
+    pub error: Option<TransferError>,
+}
+
+impl TransferEvent {
+    fn of(kind: EventKind) -> Self {
+        Self {
+            kind,
+            words: Vec::new(),
+            done: 0,
+            total: 0,
+            summary: None,
+            error: None,
+        }
+    }
+}
+
+type Sink = Arc<Mutex<StreamSink<TransferEvent>>>;
+
+fn emit(sink: &Sink, event: TransferEvent) {
+    if let Ok(s) = sink.lock() {
+        let _ = s.add(event);
+    }
+}
+
+fn core_events(sink: Sink) -> totaldrop_core::Events {
+    Arc::new(move |event| {
+        let e = match event {
+            Event::Waiting => TransferEvent::of(EventKind::Waiting),
+            Event::Connected { words } => TransferEvent {
+                words,
+                ..TransferEvent::of(EventKind::Connected)
+            },
+            Event::Progress { done, total } => TransferEvent {
+                done: b(done),
+                total: b(total),
+                ..TransferEvent::of(EventKind::Progress)
+            },
+        };
+        emit(&sink, e);
+    })
+}
+
+fn finish(sink: &Sink, result: Result<TransferSummary, TransferError>) {
+    match result {
+        Ok(summary) => emit(
+            sink,
+            TransferEvent {
+                summary: Some(summary),
+                ..TransferEvent::of(EventKind::Finished)
+            },
+        ),
+        Err(error) => emit(
+            sink,
+            TransferEvent {
+                error: Some(error),
+                ..TransferEvent::of(EventKind::Failed)
+            },
+        ),
+    }
+}
+
+/// A send with a code, waiting to be run.
+#[frb(opaque)]
+pub struct SendSession {
+    inner: Mutex<Option<PreparedSend>>,
+    code: String,
+    items: i64,
+    total_bytes: i64,
+}
+
+impl SendSession {
+    /// The code to tell the receiver, for example `7-harbor-rocket`.
+    #[frb(sync, getter)]
+    pub fn code(&self) -> String {
+        self.code.clone()
+    }
+
+    /// Number of files and folders offered.
+    #[frb(sync, getter)]
+    pub fn items(&self) -> i64 {
+        self.items
+    }
+
+    /// Total bytes offered.
+    #[frb(sync, getter)]
+    pub fn total_bytes(&self) -> i64 {
+        self.total_bytes
+    }
+}
+
+/// The paths a transfer may take. With `privacy`, only the relay: the
+/// other device never learns this one's IP address.
+fn route(privacy: bool) -> PathOptions {
+    PathOptions {
+        relay_only: privacy,
+        ..PathOptions::default()
+    }
+}
+
+/// Scan and hash `paths`, reserve a code. `strong` adds a third word;
+/// `privacy` sends through the relay only.
+pub async fn prepare_send(
+    server: String,
+    paths: Vec<String>,
+    strong: bool,
+    privacy: bool,
+    stopper: &Stopper,
+) -> Result<SendSession, TransferError> {
+    let stop = stopper.stop.clone();
+    on_runtime(async move {
+        let opts = SendOptions {
+            server,
+            words: if strong { 3 } else { 2 },
+            paths: route(privacy),
+        };
+        let paths = paths.into_iter().map(PathBuf::from).collect();
+        // Dropping the preparation releases the reserved code at once.
+        let prepared = tokio::select! {
+            biased;
+            () = stop.stopped() => return Err(stopped()),
+            r = PreparedSend::new(&opts, paths) => r?,
+        };
+        let (items, total_bytes) = prepared.totals();
+        Ok(SendSession {
+            code: prepared.code().to_string(),
+            items: n(items),
+            total_bytes: b(total_bytes),
+            inner: Mutex::new(Some(prepared)),
+        })
+    })
+    .await
+}
+
+/// Reserve a code to send `text` (#326): the receiver shows it instead of
+/// saving it. At most 1 MiB of UTF-8; `strong` and `privacy` as for
+/// [`prepare_send`].
+pub async fn prepare_send_text(
+    server: String,
+    text: String,
+    strong: bool,
+    privacy: bool,
+    stopper: &Stopper,
+) -> Result<SendSession, TransferError> {
+    let stop = stopper.stop.clone();
+    on_runtime(async move {
+        let opts = SendOptions {
+            server,
+            words: if strong { 3 } else { 2 },
+            paths: route(privacy),
+        };
+        let prepared = tokio::select! {
+            biased;
+            () = stop.stopped() => return Err(stopped()),
+            r = PreparedSend::text(&opts, &text, totaldrop_core::TEXT_FILE) => r?,
+        };
+        let (items, total_bytes) = prepared.totals();
+        Ok(SendSession {
+            code: prepared.code().to_string(),
+            items: n(items),
+            total_bytes: b(total_bytes),
+            inner: Mutex::new(Some(prepared)),
+        })
+    })
+    .await
+}
+
+/// The most bytes a text may have ([`prepare_send_text`]).
+#[frb(sync)]
+pub fn max_text_bytes() -> i64 {
+    b(totaldrop_core::MAX_TEXT)
+}
+
+/// Wait for the receiver and send, until `stopper` is stopped. Events end
+/// with `Finished` or `Failed`.
+pub async fn run_send(session: &SendSession, stopper: &Stopper, sink: StreamSink<TransferEvent>) {
+    let sink: Sink = Arc::new(Mutex::new(sink));
+    let prepared = session.inner.lock().ok().and_then(|mut g| g.take());
+    let Some(prepared) = prepared else {
+        return finish(&sink, Err(TransferError::other("this send already ran")));
+    };
+    let events = core_events(sink.clone());
+    let stop = stopper.stop.clone();
+    let result = on_runtime(async move {
+        let r = prepared
+            .run_with(events, stop)
+            .await
+            .map_err(TransferError::on_send)?;
+        Ok(TransferSummary {
+            files_ok: n(r.files_ok),
+            files_failed: n(r.files_failed),
+            bytes: b(r.bytes),
+            saved: Vec::new(),
+            text: None,
+        })
+    })
+    .await;
+    finish(&sink, result);
+}
+
+/// An offer that arrived, waiting for the person to decide.
+#[frb(opaque)]
+pub struct Offer {
+    inner: Mutex<Option<IncomingOffer>>,
+    files: i64,
+    folders: i64,
+    total_bytes: i64,
+    names: Vec<String>,
+    words: Vec<String>,
+    is_text: bool,
+}
+
+impl Offer {
+    /// Number of files.
+    #[frb(sync, getter)]
+    pub fn files(&self) -> i64 {
+        self.files
+    }
+
+    /// Number of folders.
+    #[frb(sync, getter)]
+    pub fn folders(&self) -> i64 {
+        self.folders
+    }
+
+    /// Total size in bytes.
+    #[frb(sync, getter)]
+    pub fn total_bytes(&self) -> i64 {
+        self.total_bytes
+    }
+
+    /// Top-level names.
+    #[frb(sync, getter)]
+    pub fn names(&self) -> Vec<String> {
+        self.names.clone()
+    }
+
+    /// A text to show, not files to save (#326): accept it with
+    /// [`accept_text`].
+    #[frb(sync, getter)]
+    pub fn is_text(&self) -> bool {
+        self.is_text
+    }
+
+    /// The four verification words; the sender sees the same.
+    #[frb(sync, getter)]
+    pub fn words(&self) -> Vec<String> {
+        self.words.clone()
+    }
+}
+
+/// Use `code` to connect to the sender and receive its offer, until
+/// `stopper` is stopped. `privacy` receives through the relay only.
+pub async fn connect_receive(
+    server: String,
+    code: String,
+    privacy: bool,
+    stopper: &Stopper,
+) -> Result<Offer, TransferError> {
+    let stop = stopper.stop.clone();
+    on_runtime(async move {
+        let offer = IncomingOffer::connect_with(
+            &ReceiveOptions {
+                server,
+                paths: route(privacy),
+            },
+            &code,
+            &stop,
+        )
+        .await
+        .map_err(TransferError::on_connect)?;
+        let s = offer.summary().clone();
+        Ok(Offer {
+            files: n(s.files),
+            folders: n(s.dirs),
+            total_bytes: b(s.total_size),
+            names: s.top_level,
+            words: offer.words().to_vec(),
+            is_text: s.text,
+            inner: Mutex::new(Some(offer)),
+        })
+    })
+    .await
+}
+
+/// Accept the offer and save everything beneath `destination`, which is
+/// created if missing, until `stopper` is stopped. Events end with
+/// `Finished` or `Failed`.
+pub async fn accept_offer(
+    offer: &Offer,
+    destination: String,
+    stopper: &Stopper,
+    sink: StreamSink<TransferEvent>,
+) {
+    let sink: Sink = Arc::new(Mutex::new(sink));
+    let incoming = offer.inner.lock().ok().and_then(|mut g| g.take());
+    let Some(incoming) = incoming else {
+        return finish(
+            &sink,
+            Err(TransferError::other("this offer was already answered")),
+        );
+    };
+    let events = core_events(sink.clone());
+    let stop = stopper.stop.clone();
+    let result = on_runtime(async move {
+        let dest = PathBuf::from(destination);
+        std::fs::create_dir_all(&dest)
+            .map_err(|e| TransferError::from(totaldrop_core::Error::Io(e)))?;
+        let r = incoming.accept_with(&dest, events, &stop).await?;
+        Ok(TransferSummary {
+            files_ok: n(r.files_ok),
+            files_failed: n(r.files_failed),
+            bytes: b(r.bytes),
+            saved: r.placed.iter().map(|p| p.display().to_string()).collect(),
+            text: None,
+        })
+    })
+    .await;
+    finish(&sink, result);
+}
+
+/// Accept a text offer ([`Offer::is_text`]): it is received in memory and
+/// nothing is written to disk. `Finished` carries it in `summary.text`; a
+/// text that fails its check or is not UTF-8 ends with `Failed`
+/// ([`ErrorKind::TextDamaged`]) and is not passed on.
+pub async fn accept_text(offer: &Offer, stopper: &Stopper, sink: StreamSink<TransferEvent>) {
+    let sink: Sink = Arc::new(Mutex::new(sink));
+    let incoming = offer.inner.lock().ok().and_then(|mut g| g.take());
+    let Some(incoming) = incoming else {
+        return finish(
+            &sink,
+            Err(TransferError::other("this offer was already answered")),
+        );
+    };
+    let stop = stopper.stop.clone();
+    let result = on_runtime(async move {
+        let r = incoming.accept_text_with(&stop).await?;
+        text_summary(r.text, r.bytes)
+    })
+    .await;
+    finish(&sink, result);
+}
+
+fn text_summary(text: Option<String>, bytes: u64) -> Result<TransferSummary, TransferError> {
+    match text {
+        Some(text) => Ok(TransferSummary {
+            files_ok: 1,
+            files_failed: 0,
+            bytes: b(bytes),
+            saved: Vec::new(),
+            text: Some(text),
+        }),
+        None => Err(TransferError {
+            kind: ErrorKind::TextDamaged,
+            detail: "the text failed its check".to_owned(),
+            cause: String::new(),
+        }),
+    }
+}
+
+/// Decline the offer.
+pub async fn decline_offer(offer: &Offer) -> Result<(), TransferError> {
+    let incoming = offer
+        .inner
+        .lock()
+        .ok()
+        .and_then(|mut g| g.take())
+        .ok_or_else(|| TransferError::other("this offer was already answered"))?;
+    on_runtime(async move { Ok(incoming.decline().await?) }).await
+}
+
+/// The code in what was typed or pasted, in its English form
+/// (`7-harbor-rocket`): any letter case, spaces or hyphens, invisible format
+/// characters dropped, and found inside a whole share message, as a
+/// long-press paste puts it in the field ([`totaldrop_proto::TransferCode::find`]).
+/// Returns `None` if there is no code, so the UI can say so before connecting.
+#[frb(sync)]
+pub fn normalize_code(input: String) -> Option<String> {
+    totaldrop_proto::TransferCode::find(&input).map(|c| c.to_string())
+}
+
+/// The code in a TotalDrop link another app opened TotalDrop with
+/// (`totaldrop://r/…`, `https://totaldrop.app/r#…`), in its English form.
+/// Strict, as on Linux ([`totaldrop_proto::TransferCode::from_link`]):
+/// the whole rest of the link must be the code, or this is `None`.
+#[frb(sync)]
+pub fn code_from_link(link: String) -> Option<String> {
+    totaldrop_proto::TransferCode::from_link(&link).map(|c| c.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_text_that_failed_its_check_is_not_passed_on() {
+        let e = text_summary(None, 5).unwrap_err();
+        assert_eq!(e.kind, ErrorKind::TextDamaged);
+        let ok = text_summary(Some("hi".into()), 2).unwrap();
+        assert_eq!(ok.text.as_deref(), Some("hi"));
+        assert_eq!(ok.files_ok, 1);
+    }
+
+    #[test]
+    fn a_code_not_in_use_is_not_a_server_problem() {
+        use totaldrop_core::Error as E;
+        // What the rendezvous server says when no sender uses the number.
+        for reason in ["unknown nameplate", "nameplate full", "mailbox expired"] {
+            let e = TransferError::on_connect(E::Rendezvous(reason.into()));
+            assert_eq!(e.kind, ErrorKind::CodeNotInUse, "{reason}");
+        }
+        let e = TransferError::on_connect(E::Rendezvous("connection refused".into()));
+        assert_eq!(e.kind, ErrorKind::Server);
+    }
+
+    #[test]
+    fn a_sender_is_told_its_code_expired() {
+        use totaldrop_core::Error as E;
+        // A sender's mailbox expires when nobody comes (#164).
+        let e = TransferError::on_send(E::Rendezvous("mailbox expired".into()));
+        assert_eq!(e.kind, ErrorKind::CodeExpired);
+        let e = TransferError::on_send(E::Rendezvous("connection refused".into()));
+        assert_eq!(e.kind, ErrorKind::Server);
+    }
+
+    /// The explanation under Details comes in the person's language: the
+    /// error carries its cause for Dart to translate (#212).
+    #[test]
+    fn errors_carry_their_cause() {
+        use totaldrop_core::Error as E;
+        // What quinn's idle timeout becomes.
+        let e = TransferError::from(E::Connect("timed out".into()));
+        assert_eq!(e.kind, ErrorKind::Connect);
+        assert_eq!(e.cause, "TimedOut");
+        assert!(e.detail.contains("timed out"));
+        let full = std::io::Error::from(std::io::ErrorKind::StorageFull);
+        assert_eq!(TransferError::from(E::Io(full)).cause, "DiskFull");
+        let e = TransferError::on_connect(E::Rendezvous("unknown nameplate".into()));
+        assert_eq!((e.kind, e.cause.as_str()), (ErrorKind::CodeNotInUse, ""));
+    }
+
+    #[test]
+    fn a_bad_server_address_is_named() {
+        use totaldrop_core::Error as E;
+        let e = TransferError::from(E::Rendezvous(
+            "the server address must start with wss://".into(),
+        ));
+        assert_eq!(e.kind, ErrorKind::BadServer);
+    }
+
+    #[test]
+    fn codes_from_links() {
+        assert_eq!(
+            code_from_link("totaldrop://r/7-abandon-ability".into()),
+            Some("7-abandon-ability".into())
+        );
+        assert_eq!(
+            code_from_link("https://totaldrop.app/r#7%20abandon%20ability".into()),
+            Some("7-abandon-ability".into())
+        );
+        assert_eq!(
+            code_from_link("totaldrop://r/x?c=7-abandon-ability".into()),
+            None
+        );
+    }
+
+    #[test]
+    fn codes_as_typed() {
+        assert_eq!(
+            normalize_code(" 7 Abandon  ability ".into()),
+            Some("7-abandon-ability".into())
+        );
+        assert_eq!(normalize_code("seven words".into()), None);
+    }
+
+    #[test]
+    fn codes_typed_with_arabic_indic_digits() {
+        // Arabic, Persian and Urdu keyboards; what connects is ASCII.
+        for code in ["\u{0667}-abandon-ability", "\u{06F7} abandon ability"] {
+            assert_eq!(
+                normalize_code(code.into()),
+                Some("7-abandon-ability".into()),
+                "{code:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn codes_in_a_pasted_share_message() {
+        // The whole message, pasted into the field with the system menu.
+        for text in [
+            "Get my files with TotalDrop. Code: \u{2068}7-abandon-ability\u{2069}",
+            "استلم ملفاتي عبر TotalDrop. الرمز: \u{2068}7-abandon-ability\u{2069}",
+        ] {
+            assert_eq!(
+                normalize_code(text.into()),
+                Some("7-abandon-ability".into()),
+                "{text:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn codes_pasted_from_a_right_to_left_message() {
+        // The share text isolates the code (U+2068 … U+2069); a copy of the
+        // code alone can carry the isolates or other direction marks.
+        for code in [
+            "\u{2068}7-abandon-ability\u{2069}",
+            "\u{2066}7 abandon ability\u{2069}",
+            "\u{2067}7-abandon-ability\u{2069}\u{200F}",
+            "\u{200E}7-\u{202D}abandon\u{202C}-ability\u{061C}",
+            " \u{2068} 7-abandon-ability \u{2069} ",
+            "\u{FEFF}7-aban\u{200B}don-ability\u{2060}",
+        ] {
+            assert_eq!(
+                normalize_code(code.into()),
+                Some("7-abandon-ability".into()),
+                "{code:?}"
+            );
+        }
+        assert_eq!(normalize_code("\u{2068}\u{2069}".into()), None);
+    }
+}

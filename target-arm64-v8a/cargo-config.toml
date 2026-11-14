@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Isolated Cargo configuration for 64-bit ARM Android (arm64-v8a / aarch64-linux-android).
+# Usage:
+#   RUSTUP_TOOLCHAIN=stable cargo build --locked --release \
+#     -p rust_lib_totaldrop --target aarch64-linux-android \
+#     --config target-arm64-v8a/cargo-config.toml
+
+[build]
+target = "aarch64-linux-android"
+
+[target.aarch64-linux-android]
+linker = "aarch64-linux-android31-clang"
+ar = "llvm-ar"
+rustflags = [
+    "-C", "link-arg=-Wl,--hash-style=both",
+    # Mandatory 16 KB ELF PT_LOAD alignment for Android 15+ (API 35+) and Google Play.
+    "-C", "link-arg=-Wl,-z,max-page-size=16384",
+    "-C", "link-arg=-Wl,-z,common-page-size=16384",
+    "-C", "link-arg=-Wl,--build-id=sha1",
+]

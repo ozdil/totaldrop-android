@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Isolated Cargo configuration for 64-bit x86_64 Android (x86_64-linux-android)
+# targeting Chromebooks (ARCVM), Android PC, Google TV x86, and Android 15+ 16 KB CI emulators.
+# Usage:
+#   RUSTUP_TOOLCHAIN=stable cargo build --locked --release \
+#     -p rust_lib_totaldrop --target x86_64-linux-android \
+#     --config target-x86_64/cargo-config.toml
+
+[build]
+target = "x86_64-linux-android"
+
+[target.x86_64-linux-android]
+linker = "x86_64-linux-android31-clang"
+ar = "llvm-ar"
+rustflags = [
+    "-C", "link-arg=-Wl,--hash-style=both",
+    # Mandatory 16 KB ELF PT_LOAD alignment for Android 15+ 16 KB x86_64 emulator & ARCVM images.
+    "-C", "link-arg=-Wl,-z,max-page-size=16384",
+    "-C", "link-arg=-Wl,-z,common-page-size=16384",
+    "-C", "link-arg=-Wl,--build-id=sha1",
+]

@@ -1,0 +1,687 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Finnish (`fi`).
+class AppLocalizationsFi extends AppLocalizations {
+  AppLocalizationsFi([String locale = 'fi']) : super(locale);
+
+  @override
+  String get appTagline =>
+      'Mikä tahansa tiedosto, kenelle tahansa, minne tahansa.';
+
+  @override
+  String get homeSendTitle => 'Lähetä';
+
+  @override
+  String get homeSendBody => 'Valitse tiedostot ja jaa lyhyt koodi';
+
+  @override
+  String get homeReceiveTitle => 'Vastaanota';
+
+  @override
+  String get homeReceiveBody => 'Anna koodi ja tallenna tiedostot';
+
+  @override
+  String get homeFooter =>
+      'Päästä päähän salattu. Ei tiliä, ei sähköpostia, ei puhelinnumeroa.';
+
+  @override
+  String get settings => 'Asetukset';
+
+  @override
+  String get sendTitle => 'Lähetä tiedostoja';
+
+  @override
+  String get sendAddFiles => 'Lisää tiedostoja';
+
+  @override
+  String get sendEmpty => 'Mitään ei ole vielä valittu';
+
+  @override
+  String get sendEmptyHint =>
+      'Lisää tiedostot, jotka haluat lähettää. Vastaanottaja saa juuri nämä, ei mitään muuta.';
+
+  @override
+  String get sendStrongCode => 'Vahvempi koodi';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Kolme sanaa kahden sijaan: paljon vaikeampi arvata';
+
+  @override
+  String get sendCreateCode => 'Luo koodi';
+
+  @override
+  String get sendCounting => 'Lasketaan…';
+
+  @override
+  String get sendRemove => 'Poista';
+
+  @override
+  String get sendPreparing => 'Valmistellaan tiedostoja…';
+
+  @override
+  String get sendAddFailed =>
+      'Tiedostoja ei voitu lisätä. Yritä uudelleen. Jos näin käy taas, tarkista, että tällä laitteella on tarpeeksi vapaata tilaa, tai valitse tiedostot toisesta paikasta.';
+
+  @override
+  String get sendYourCode => 'Koodisi';
+
+  @override
+  String get sendCodeHint =>
+      'Avaa toisella laitteella TotalDrop, napauta Vastaanota ja anna tämä koodi.';
+
+  @override
+  String get sendWaiting => 'Odotetaan vastaanottajaa…';
+
+  @override
+  String get sendCopy => 'Kopioi';
+
+  @override
+  String get sendCopied => 'Koodi kopioitu';
+
+  @override
+  String get sendShare => 'Jaa';
+
+  @override
+  String sendShareText(String code) {
+    return 'Hae tiedostoni TotalDropilla. Koodi: $code';
+  }
+
+  @override
+  String get sendSending => 'Lähetetään';
+
+  @override
+  String get sendDone => 'Lähetetty ja tarkistettu';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kaikki $countString tiedostoa saapuivat ehjinä.',
+      one: 'Tiedosto saapui ehjänä.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString tiedostoa ei saapunut ehjinä, ja ne hylättiin.',
+      one: 'Yksi tiedosto ei saapunut ehjänä, ja se hylättiin.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString kohdetta',
+      one: '$countString kohde',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Vastaanota tiedostoja';
+
+  @override
+  String get receiveCodeLabel => 'Koodi';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Pyydä koodi lähettäjältä.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Tämä ei näytä koodilta. Koodi alkaa numerolla, jota seuraa kaksi tai kolme sanaa.';
+
+  @override
+  String get receivePaste => 'Liitä';
+
+  @override
+  String get receiveConnect => 'Yhdistä';
+
+  @override
+  String get receiveConnecting => 'Muodostetaan suojattua yhteyttä…';
+
+  @override
+  String get receiveOffer => 'Saapuvat tiedostot';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      files,
+      locale: localeName,
+      other: '$filesString tiedostoa',
+      one: '$filesString tiedosto',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'ja $countString muuta';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Tallennetaan kansioon $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Hyväksy';
+
+  @override
+  String get receiveDecline => 'Hylkää';
+
+  @override
+  String get receiveDeclined => 'Hylkäsit tiedostot.';
+
+  @override
+  String get receiveReceiving => 'Vastaanotetaan';
+
+  @override
+  String get receiveDone => 'Vastaanotettu ja tarkistettu';
+
+  @override
+  String get verificationTitle => 'Tarkistussanat';
+
+  @override
+  String get verificationHint =>
+      'Toinen henkilö näkee samat neljä sanaa. Jos ne eroavat, keskeytä.';
+
+  @override
+  String get sameNetworkNote =>
+      'Toimii internetin yli. Kun laitteet eivät tavoita toisiaan suoraan, salattu siirto kulkee välityspalvelimen kautta, joka ei voi lukea sitä.';
+
+  @override
+  String get done => 'Valmis';
+
+  @override
+  String get tryAgain => 'Yritä uudelleen';
+
+  @override
+  String get cancel => 'Peruuta';
+
+  @override
+  String get cancelTransferTitle => 'Lopetetaanko siirto?';
+
+  @override
+  String get cancelTransferBody =>
+      'Toiselle osapuolelle kerrotaan, että siirto lopetettiin.';
+
+  @override
+  String get keepGoing => 'Jatka';
+
+  @override
+  String get stop => 'Lopeta';
+
+  @override
+  String get moreInfo => 'Lisätiedot';
+
+  @override
+  String get errorWrongCode =>
+      'Koodi ei täsmännyt. Se kirjoitettiin väärin, tai joku yritti kaapata siirron. Mitään ei lähetetty. Aloita alusta uudella koodilla.';
+
+  @override
+  String get errorPeerLeft =>
+      'Toinen osapuoli poistui ennen kuin siirto valmistui.';
+
+  @override
+  String get errorDeclined => 'Vastaanottaja hylkäsi tiedostot.';
+
+  @override
+  String get errorCancelled => 'Toinen osapuoli lopetti siirron.';
+
+  @override
+  String get errorStopped => 'Lopetettu tällä laitteella.';
+
+  @override
+  String get errorInvalidCode => 'Koodi ei ole kelvollinen.';
+
+  @override
+  String get errorServer =>
+      'TotalDrop-palvelimeen ei saatu yhteyttä. Tarkista internetyhteys.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Koodi ei ole käytössä: se kirjoitettiin väärin, on vanhentunut tai on jo käytetty. Pyydä lähettäjältä uusi.';
+
+  @override
+  String get errorCodeExpired =>
+      'Koodi vanheni ennen kuin kukaan käytti sitä. Lähetä uudelleen saadaksesi uuden koodin.';
+
+  @override
+  String get errorBadServer =>
+      'Palvelimen osoite ei ole kelvollinen. Sen on alettava wss://.';
+
+  @override
+  String get errorConnect =>
+      'Toiseen laitteeseen ei saatu yhteyttä. Varmista, että molemmat laitteet ovat verkossa, ja yritä uudelleen.';
+
+  @override
+  String get errorInvalidOffer =>
+      'Tarjous rikkoi turvasääntöä, joten se hylättiin.';
+
+  @override
+  String get errorStorage => 'Tiedostoa ei voitu lukea tai tallentaa.';
+
+  @override
+  String get errorOther => 'Jokin meni vikaan.';
+
+  @override
+  String get causeTimedOut =>
+      'Yhteys lakkasi vastaamasta. Toinen laitteista on ehkä menettänyt verkon tai mennyt lepotilaan.';
+
+  @override
+  String get causeConnectionLost => 'Yhteys toiseen laitteeseen katkesi.';
+
+  @override
+  String get causeNoRoute =>
+      'Toista laitetta ei tavoitettu suoraan eikä välityspalvelimen kautta.';
+
+  @override
+  String get causeRelay =>
+      'Välityspalvelinta ei tavoitettu tai sitä ei ole määritetty, tai laitteet eivät käytä samaa välityspalvelinta.';
+
+  @override
+  String get causeProtocol =>
+      'Toinen laite lähetti jotain, mitä tämä versio ei ymmärrä. TotalDropin päivittäminen molemmissa laitteissa voi auttaa.';
+
+  @override
+  String get causeDiskFull =>
+      'Tässä laitteessa ei ole tarpeeksi vapaata tilaa.';
+
+  @override
+  String get causeNoPermission =>
+      'TotalDropilla ei ole lupaa lukea tai kirjoittaa tarvitsemaansa tiedostoa tai kansiota.';
+
+  @override
+  String get causeNotFound =>
+      'Tiedostoa tai kansiota ei löytynyt. Se on ehkä siirretty tai poistettu.';
+
+  @override
+  String get causeReadOnly => 'Kansio on levyllä, jolle ei voi kirjoittaa.';
+
+  @override
+  String get causeFileChanged =>
+      'Tiedosto muuttui lähetyksen aikana. Lähetä se uudelleen, kun se on tallennettu.';
+
+  @override
+  String get technicalDetail =>
+      'Tekninen viesti englanniksi, liitettäväksi ongelmasta ilmoittaessa:';
+
+  @override
+  String get settingsServer => 'Kohtauspalvelin';
+
+  @override
+  String get settingsServerHelp =>
+      'Auttaa kahta saman koodin laitetta löytämään toisensa. Se ei koskaan näe tiedostojasi tai avaimiasi.';
+
+  @override
+  String get settingsServerReset => 'Käytä oletusta';
+
+  @override
+  String get settingsServerInvalid => 'Alun on oltava wss://';
+
+  @override
+  String get settingsSave => 'Tallenna';
+
+  @override
+  String get settingsAbout => 'Tietoja';
+
+  @override
+  String get settingsAboutBody =>
+      'TotalDrop on ilmainen ja avointa lähdekoodia, ja se rahoitetaan lahjoituksilla. Lisenssi: GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Yksityisyys';
+
+  @override
+  String get settingsPrivacyBody =>
+      'Kohtauspalvelin, välityspalvelin ja Cloudflaren STUN-palvelin näkevät IP-osoitteesi, ja niin näkee myös toinen laite, kun yhdistätte suoraan (ellei yksityisyystila ole käytössä). Mikään niistä ei näe tiedostojen nimiä, sisältöä tai avaimia, eivätkä palvelimemme tallenna lokeja. Tiedostot kulkevat suoraan laitteiden välillä aina kun mahdollista, muuten välityspalvelimen kautta; ne ovat päästä päähän salattuja kummassakin tapauksessa.';
+
+  @override
+  String get privacyMode => 'Piilota osoitteeni toiselta laitteelta';
+
+  @override
+  String get privacyModeHint =>
+      'Yksityisyystila: kaikki kulkee välityspalvelimen kautta, joten toinen laite ei koskaan saa tietää IP-osoitettasi. Hitaampi, ja toisen laitteen on käytettävä samaa välityspalvelinta (oletuspalvelin käyttää).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Otetaanko yksityisyystila käyttöön?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'Siirrot hidastuvat, koska mikään ei kulje suoraan laitteiden välillä. Kohtauspalvelin ja välityspalvelin näkevät edelleen IP-osoitteesi; ne eivät koskaan näe tiedostojasi tai avaimiasi.';
+
+  @override
+  String get privacyModeTurnOn => 'Ota käyttöön';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Versio $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value t';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kt';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value Mt';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value Gt';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value Tt';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value Pt';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Tätä käännöstä tarkistetaan. Auta parantamaan sitä GitHubissa.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Koodit ja tarkistussanat ovat aina englanniksi, jotta eri kielille asetetut laitteet näyttävät samat sanat.';
+
+  @override
+  String get sendDropHere => 'Pudota tiedostot tähän';
+
+  @override
+  String get sendDropHint => 'Voit myös vetää tiedostoja tähän ikkunaan.';
+
+  @override
+  String get keepAwakeReason =>
+      'TotalDrop lähettää tai vastaanottaa tiedostoja';
+
+  @override
+  String get sendQrHint => 'Tai skannaa koodi toisen laitteen kameralla.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Tarkista sanat ja odota, että vastaanottaja hyväksyy.';
+
+  @override
+  String get receiveFromImage => 'Lue QR-koodi kuvasta';
+
+  @override
+  String get receiveQrNotFound => 'Kuvassa ei ole TotalDrop-koodia.';
+
+  @override
+  String get pickTitle => 'Valitse lähetettävät tiedostot';
+
+  @override
+  String get pickImageTitle => 'Valitse kuva, jossa on QR-koodi';
+
+  @override
+  String get openFolder => 'Avaa kansio';
+
+  @override
+  String get back => 'Takaisin';
+
+  @override
+  String get codeSuggestions => 'Ehdotukset';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString %';
+  }
+
+  @override
+  String get editUndo => 'Kumoa';
+
+  @override
+  String get editRedo => 'Tee uudelleen';
+
+  @override
+  String get editCut => 'Leikkaa';
+
+  @override
+  String get editCopy => 'Kopioi';
+
+  @override
+  String get editPaste => 'Liitä';
+
+  @override
+  String get editDelete => 'Poista';
+
+  @override
+  String get editSelectAll => 'Valitse kaikki';
+
+  @override
+  String get transferNoticeChannel => 'Siirrot';
+
+  @override
+  String get transferNoticeSending => 'Lähetetään TotalDropilla';
+
+  @override
+  String get transferNoticeReceiving => 'Vastaanotetaan TotalDropilla';
+
+  @override
+  String get transferNoticeBody => 'Jatkuu, kun käytät muita sovelluksia.';
+
+  @override
+  String get shareBusy =>
+      'Siirto on yhä käynnissä. Odota, että se valmistuu, tai pysäytä se ja jaa sitten uudelleen.';
+
+  @override
+  String get linkBusy =>
+      'Vie loppuun tai pysäytä se, mikä on näytöllä, ja avaa linkki sitten uudelleen.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count jaettua kohdetta ei voitu lukea, joten ne jätettiin pois.',
+      one: 'Yhtä jaettua kohdetta ei voitu lukea, joten se jätettiin pois.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Tiedostonsiirto';
+
+  @override
+  String get desktopComment =>
+      'Lähetä tiedostot suoraan toiseen laitteeseen päästä päähän salattuina';
+
+  @override
+  String get desktopKeywords => 'lähetä;vastaanota;jaa;siirrä;tiedostot;';
+
+  @override
+  String get desktopSendWith => 'Lähetä TotalDropilla';
+
+  @override
+  String get metainfoSummary => 'Lähetä tiedostot suoraan toiseen laitteeseen';
+
+  @override
+  String get metainfoAbout =>
+      'TotalDrop lähettää tiedostoja ja kansioita laitteesta toiseen päästä päähän salattuina. Valitse tiedostot, jaa lyhyt koodi tai QR-koodi, ja toinen laite vastaanottaa ne. Ei tiliä, ei sähköpostia, ei puhelinnumeroa.';
+
+  @override
+  String get metainfoVerified =>
+      'Jokainen tiedosto tarkistetaan perillä; vioittuneet tiedostot hylätään';
+
+  @override
+  String get metainfoWords =>
+      'Neljä tarkistussanaa osoittaa, ettei välissä ole ketään';
+
+  @override
+  String get metainfoTheme =>
+      'Seuraa työpöytäsi teemaa: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Käytä vain yhtä Linux-pakettia kerrallaan. Flatpakilla ja .pkg-, .deb- tai .rpm-paketilla on sama nimi, joten kun toinen on auki, toisen käynnistäminen tuo avoimen ikkunan eteen eikä avaa toista.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'TotalDrop on jo auki Flatpakista, joten sen ikkuna tuotiin eteen. Käytä vain yhtä pakettia kerrallaan: sulje se ikkuna avataksesi tämän.';
+
+  @override
+  String get otherPackageSystem =>
+      'TotalDrop on jo auki .pkg-, .deb- tai .rpm-paketista, joten sen ikkuna tuotiin eteen. Käytä vain yhtä pakettia kerrallaan: sulje se ikkuna avataksesi tämän.';
+
+  @override
+  String get sendText => 'Lähetä tekstiä';
+
+  @override
+  String get sendTextHint => 'Kirjoita tai liitä lähetettävä teksti';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Teksti saa olla enintään $size. Lähetä pidempi teksti tiedostona.';
+  }
+
+  @override
+  String get sendTextDone => 'Teksti saapui ehjänä.';
+
+  @override
+  String get sendClipboard => 'Lähetä leikepöytä';
+
+  @override
+  String get sendClipboardEmpty => 'Leikepöydällä ei ole tekstiä.';
+
+  @override
+  String get receiveOfferText => 'Saapuva teksti';
+
+  @override
+  String get receiveOfferTextNote =>
+      'Teksti näytetään tässä, sitä ei tallenneta.';
+
+  @override
+  String get receiveTextDone => 'Teksti vastaanotettu ja tarkistettu';
+
+  @override
+  String get receiveTextDeclined => 'Hylkäsit tekstin.';
+
+  @override
+  String get receiveTextHidden =>
+      'Tekstissä on piilomerkkejä, jotka näytetään muodossa U+…. Kopioitaessa saat tekstin täsmälleen sellaisena kuin se saapui.';
+
+  @override
+  String get sendTextHidden =>
+      'Tekstissä on piilomerkkejä, kuten suuntamerkkejä. Ne lähetetään tekstin mukana.';
+
+  @override
+  String get sendClipboardKept =>
+      'Jo kirjoitettu teksti säilytettiin, leikepöytää ei käytetty.';
+
+  @override
+  String get sendTextShortened =>
+      'Tekstistä näytetään vain alku, koko teksti lähetetään.';
+
+  @override
+  String get receiveTextShortened =>
+      'Tekstistä näytetään vain alku. Kopioi teksti kopioi sen kokonaan.';
+
+  @override
+  String get copyText => 'Kopioi teksti';
+
+  @override
+  String get textCopied => 'Teksti kopioitu';
+
+  @override
+  String get errorTextDamaged =>
+      'Teksti ei saapunut ehjänä, joten sitä ei näytetä.';
+
+  @override
+  String get setupBackgroundTitle => 'Siirrot jatkuvat taustalla';
+
+  @override
+  String get setupBackgroundBody =>
+      'Jotta siirto jatkuu, kun vaihdat sovellusta tai lukitset näytön, salli TotalDropin toimia ilman akkurajoituksia. TotalDrop toimii taustalla vain, kun itse aloittamasi siirto on käynnissä.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'Androidin akun optimointi on pois päältä TotalDropilta.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'Androidin akun optimointi on päällä TotalDropilla: siirto voi pysähtyä, kun vaihdat sovellusta.';
+
+  @override
+  String get setupBackgroundBattery => 'Avaa akkuasetukset';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Avaa TotalDropin sovellustiedoista Akku ja salli rajoittamaton käyttö. Näiden asetusten nimet vaihtelevat puhelimittain.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return '$maker-puhelimissa on oma virransäästö';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Avaa myös TotalDropin virransäästö ja valitse ”Ei rajoituksia”. Jos puhelimessa on Automaattinen käynnistys, ota se käyttöön TotalDropille.';
+
+  @override
+  String get setupBackgroundMakerOpen => 'Avaa TotalDropin virransäästö';
+
+  @override
+  String get setupBackgroundAutostart => 'Avaa Automaattinen käynnistys';
+
+  @override
+  String get setupBackgroundSkip => 'Ei nyt';
+
+  @override
+  String get settingsBackground => 'Siirrot taustalla';
+
+  @override
+  String get settingsBackgroundOpen => 'Akkuasetukset';
+}

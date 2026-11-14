@@ -1,0 +1,677 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Hungarian (`hu`).
+class AppLocalizationsHu extends AppLocalizations {
+  AppLocalizationsHu([String locale = 'hu']) : super(locale);
+
+  @override
+  String get appTagline => 'Bármilyen fájlt, bárkinek, bárhová.';
+
+  @override
+  String get homeSendTitle => 'Küldés';
+
+  @override
+  String get homeSendBody => 'Válassz fájlokat, és ossz meg egy rövid kódot';
+
+  @override
+  String get homeReceiveTitle => 'Fogadás';
+
+  @override
+  String get homeReceiveBody => 'Írd be a kódot, és mentsd a fájlokat';
+
+  @override
+  String get homeFooter =>
+      'Végpontok közötti titkosítás. Nincs fiók, e-mail-cím vagy telefonszám.';
+
+  @override
+  String get settings => 'Beállítások';
+
+  @override
+  String get sendTitle => 'Fájlok küldése';
+
+  @override
+  String get sendAddFiles => 'Fájlok hozzáadása';
+
+  @override
+  String get sendEmpty => 'Még nincs kiválasztva semmi';
+
+  @override
+  String get sendEmptyHint =>
+      'Add hozzá a küldendő fájlokat. A címzett pontosan ezeket kapja meg, mást nem.';
+
+  @override
+  String get sendStrongCode => 'Erősebb kód';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Kettő helyett három szó: sokkal nehezebb kitalálni';
+
+  @override
+  String get sendCreateCode => 'Kód létrehozása';
+
+  @override
+  String get sendCounting => 'Számolás…';
+
+  @override
+  String get sendRemove => 'Eltávolítás';
+
+  @override
+  String get sendPreparing => 'Fájlok előkészítése…';
+
+  @override
+  String get sendAddFailed =>
+      'A fájlokat nem sikerült hozzáadni. Próbáld újra. Ha ismét előfordul, ellenőrizd, hogy van-e elég szabad hely ezen az eszközön, vagy válaszd ki a fájlokat máshonnan.';
+
+  @override
+  String get sendYourCode => 'A kódod';
+
+  @override
+  String get sendCodeHint =>
+      'A másik eszközön nyisd meg a TotalDrop alkalmazást, koppints a Fogadás gombra, és írd be ezt a kódot.';
+
+  @override
+  String get sendWaiting => 'Várakozás a címzettre…';
+
+  @override
+  String get sendCopy => 'Másolás';
+
+  @override
+  String get sendCopied => 'Kód másolva';
+
+  @override
+  String get sendShare => 'Megosztás';
+
+  @override
+  String sendShareText(String code) {
+    return 'Vedd át a fájljaimat a TotalDrop alkalmazással. Kód: $code';
+  }
+
+  @override
+  String get sendSending => 'Küldés folyamatban';
+
+  @override
+  String get sendDone => 'Elküldve és ellenőrizve';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString fájl érkezett meg, mind sértetlenül.',
+      one: 'A fájl sértetlenül megérkezett.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$countString fájl nem érkezett meg sértetlenül, ezért törölve lett.',
+      one: 'Egy fájl nem érkezett meg sértetlenül, ezért törölve lett.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString elem · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Fájlok fogadása';
+
+  @override
+  String get receiveCodeLabel => 'Kód';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Kérd el a kódot a küldőtől.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Ez nem tűnik kódnak. A kód egy számmal kezdődik, utána két vagy három szó jön.';
+
+  @override
+  String get receivePaste => 'Beillesztés';
+
+  @override
+  String get receiveConnect => 'Csatlakozás';
+
+  @override
+  String get receiveConnecting => 'Biztonságos kapcsolódás…';
+
+  @override
+  String get receiveOffer => 'Bejövő fájlok';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    return '$filesString fájl · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'és még $countString';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Mentve ide: $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Elfogadás';
+
+  @override
+  String get receiveDecline => 'Elutasítás';
+
+  @override
+  String get receiveDeclined => 'Elutasítottad a fájlokat.';
+
+  @override
+  String get receiveReceiving => 'Fogadás folyamatban';
+
+  @override
+  String get receiveDone => 'Fogadva és ellenőrizve';
+
+  @override
+  String get verificationTitle => 'Ellenőrző szavak';
+
+  @override
+  String get verificationHint =>
+      'A másik fél ugyanazt a négy szót látja. Ha eltérnek, állj le.';
+
+  @override
+  String get sameNetworkNote =>
+      'Az interneten keresztül működik. Ha az eszközök nem érik el egymást közvetlenül, a titkosított átvitel a továbbító szerveren megy át, amely nem tudja elolvasni.';
+
+  @override
+  String get done => 'Kész';
+
+  @override
+  String get tryAgain => 'Újra';
+
+  @override
+  String get cancel => 'Mégse';
+
+  @override
+  String get cancelTransferTitle => 'Leállítod az átvitelt?';
+
+  @override
+  String get cancelTransferBody =>
+      'A másik fél értesítést kap, hogy az átvitel leállt.';
+
+  @override
+  String get keepGoing => 'Folytatás';
+
+  @override
+  String get stop => 'Leállítás';
+
+  @override
+  String get moreInfo => 'Részletek';
+
+  @override
+  String get errorWrongCode =>
+      'A kód nem egyezett. Vagy elgépelték, vagy valaki megpróbálta elfogni az átvitelt. Semmi sem lett elküldve. Kezdd újra egy új kóddal.';
+
+  @override
+  String get errorPeerLeft =>
+      'A másik fél kilépett, mielőtt az átvitel befejeződött.';
+
+  @override
+  String get errorDeclined => 'A címzett elutasította a fájlokat.';
+
+  @override
+  String get errorCancelled => 'A másik fél leállította az átvitelt.';
+
+  @override
+  String get errorStopped => 'Ezen az eszközön leállítva.';
+
+  @override
+  String get errorInvalidCode => 'Ez a kód érvénytelen.';
+
+  @override
+  String get errorServer =>
+      'Nem sikerült elérni a TotalDrop szervert. Ellenőrizd az internetkapcsolatot.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Ez a kód nincs használatban: elgépelték, lejárt, vagy már felhasználták. Kérj újat a küldőtől.';
+
+  @override
+  String get errorCodeExpired =>
+      'A kód lejárt, mielőtt bárki használta volna. Küldd el újra, hogy új kódot kapj.';
+
+  @override
+  String get errorBadServer =>
+      'A szervercím érvénytelen. wss:// előtaggal kell kezdődnie.';
+
+  @override
+  String get errorConnect =>
+      'Nem sikerült kapcsolódni a másik eszközhöz. Ellenőrizd, hogy mindkét eszköz online van-e, és próbáld újra.';
+
+  @override
+  String get errorInvalidOffer =>
+      'Az ajánlat megszegett egy biztonsági szabályt, ezért el lett utasítva.';
+
+  @override
+  String get errorStorage => 'Egy fájlt nem sikerült beolvasni vagy menteni.';
+
+  @override
+  String get errorOther => 'Hiba történt.';
+
+  @override
+  String get causeTimedOut =>
+      'A kapcsolat nem válaszol. Az egyik eszköz talán elvesztette a hálózatot vagy alvó módba lépett.';
+
+  @override
+  String get causeConnectionLost => 'Megszakadt a kapcsolat a másik eszközzel.';
+
+  @override
+  String get causeNoRoute =>
+      'A másik eszköz sem közvetlenül, sem a továbbító szerveren keresztül nem volt elérhető.';
+
+  @override
+  String get causeRelay =>
+      'A továbbító szerver nem érhető el vagy nincs beállítva, vagy a két eszköz nem ugyanazt használja.';
+
+  @override
+  String get causeProtocol =>
+      'A másik eszköz olyat küldött, amit ez a verzió nem ért. Segíthet, ha mindkét eszközön frissíti a TotalDropot.';
+
+  @override
+  String get causeDiskFull => 'Nincs elég szabad hely ezen az eszközön.';
+
+  @override
+  String get causeNoPermission =>
+      'A TotalDrop nem olvashat vagy írhat egy szükséges fájlt vagy mappát.';
+
+  @override
+  String get causeNotFound =>
+      'Egy fájl vagy mappa nem található. Lehet, hogy áthelyezték vagy törölték.';
+
+  @override
+  String get causeReadOnly =>
+      'A mappa olyan lemezen van, amelyre nem lehet írni.';
+
+  @override
+  String get causeFileChanged =>
+      'Egy fájl megváltozott küldés közben. Küldje el újra, ha már mentve van.';
+
+  @override
+  String get technicalDetail =>
+      'Angol nyelvű technikai üzenet, amelyet hibabejelentéshez csatolhat:';
+
+  @override
+  String get settingsServer => 'Találkozási szerver';
+
+  @override
+  String get settingsServerHelp =>
+      'Segít, hogy két, azonos kódot használó eszköz megtalálja egymást. A fájljaidat és a kulcsaidat soha nem látja.';
+
+  @override
+  String get settingsServerReset => 'Alapértelmezett használata';
+
+  @override
+  String get settingsServerInvalid => 'wss:// előtaggal kell kezdődnie';
+
+  @override
+  String get settingsSave => 'Mentés';
+
+  @override
+  String get settingsAbout => 'Névjegy';
+
+  @override
+  String get settingsAboutBody =>
+      'A TotalDrop ingyenes és nyílt forráskódú, adományokból működik. Licenc: GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Adatvédelem';
+
+  @override
+  String get settingsPrivacyBody =>
+      'A találkozási szerver, a továbbító szerver és a Cloudflare STUN-szervere látja az IP-címedet, és közvetlen kapcsolatnál a másik eszköz is (hacsak nincs bekapcsolva az adatvédelmi mód). Egyikük sem látja a fájlneveket, a tartalmat vagy a kulcsokat, és a szervereink nem naplóznak. A fájlok, ha lehet, közvetlenül mennek az eszközök között, ha nem, a továbbító szerveren át; végpontok közötti titkosítással mindkét esetben.';
+
+  @override
+  String get privacyMode => 'Címem elrejtése a másik eszköz elől';
+
+  @override
+  String get privacyModeHint =>
+      'Adatvédelmi mód: minden a továbbító szerveren megy át, így a másik eszköz sosem tudja meg az IP-címedet. Lassabb, és a másik eszköznek ugyanazt a továbbító szervert kell használnia (az alapértelmezett ilyen).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Bekapcsolod az adatvédelmi módot?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'Az átvitel lassabb lesz, mert semmi sem megy közvetlenül az eszközök között. A találkozási szerver és a továbbító szerver továbbra is látja az IP-címedet; a fájljaidat és a kulcsaidat soha.';
+
+  @override
+  String get privacyModeTurnOn => 'Bekapcsolás';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Verzió: $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Ez a fordítás ellenőrzés alatt áll. Segíts javítani a GitHubon.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'A kódok és az ellenőrző szavak minden nyelven angolul jelennek meg, hogy a különböző nyelvű eszközök ugyanazokat a szavakat mutassák.';
+
+  @override
+  String get sendDropHere => 'Húzd ide a fájlokat';
+
+  @override
+  String get sendDropHint => 'A fájlokat erre az ablakra is ráhúzhatod.';
+
+  @override
+  String get keepAwakeReason => 'A TotalDrop fájlokat küld vagy fogad';
+
+  @override
+  String get sendQrHint =>
+      'Vagy olvasd be ezt a kódot a másik eszköz kamerájával.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Ellenőrizd a szavakat, aztán várd meg, hogy a címzett elfogadja.';
+
+  @override
+  String get receiveFromImage => 'QR-kód beolvasása képről';
+
+  @override
+  String get receiveQrNotFound => 'Ezen a képen nincs TotalDrop-kód.';
+
+  @override
+  String get pickTitle => 'Válaszd ki a küldendő fájlokat';
+
+  @override
+  String get pickImageTitle => 'Válassz egy QR-kódot tartalmazó képet';
+
+  @override
+  String get openFolder => 'Mappa megnyitása';
+
+  @override
+  String get back => 'Vissza';
+
+  @override
+  String get codeSuggestions => 'Javaslatok';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString%';
+  }
+
+  @override
+  String get editUndo => 'Visszavonás';
+
+  @override
+  String get editRedo => 'Újra';
+
+  @override
+  String get editCut => 'Kivágás';
+
+  @override
+  String get editCopy => 'Másolás';
+
+  @override
+  String get editPaste => 'Beillesztés';
+
+  @override
+  String get editDelete => 'Törlés';
+
+  @override
+  String get editSelectAll => 'Az összes kijelölése';
+
+  @override
+  String get transferNoticeChannel => 'Átvitelek';
+
+  @override
+  String get transferNoticeSending => 'Küldés TotalDroppal';
+
+  @override
+  String get transferNoticeReceiving => 'Fogadás TotalDroppal';
+
+  @override
+  String get transferNoticeBody =>
+      'Akkor is folytatódik, ha más alkalmazásokat használsz.';
+
+  @override
+  String get shareBusy =>
+      'Még folyamatban van egy átvitel. Várd meg, amíg befejeződik, vagy állítsd le, aztán oszd meg újra.';
+
+  @override
+  String get linkBusy =>
+      'Fejezd be vagy állítsd le, ami a képernyőn van, aztán nyisd meg újra a linket.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count megosztott elemet nem sikerült beolvasni, ezért kimaradt.',
+      one: 'Egy megosztott elemet nem sikerült beolvasni, ezért kimaradt.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Fájlátvitel';
+
+  @override
+  String get desktopComment =>
+      'Fájlok küldése közvetlenül egy másik eszközre, végpontok közötti titkosítással';
+
+  @override
+  String get desktopKeywords => 'küldés;fogadás;megosztás;átvitel;fájlok;';
+
+  @override
+  String get desktopSendWith => 'Küldés a TotalDroppal';
+
+  @override
+  String get metainfoSummary => 'Fájlok küldése közvetlenül egy másik eszközre';
+
+  @override
+  String get metainfoAbout =>
+      'A TotalDrop fájlokat és mappákat küld egyik eszközről a másikra, végpontok közötti titkosítással. Válaszd ki a fájlokat, oszd meg a rövid kódot vagy a QR-kódot, és a másik eszköz megkapja őket. Nincs fiók, e-mail-cím vagy telefonszám.';
+
+  @override
+  String get metainfoVerified =>
+      'Minden fájlt ellenőriz érkezéskor; a sérült fájlokat elveti';
+
+  @override
+  String get metainfoWords =>
+      'Négy ellenőrző szó mutatja, hogy senki sem áll közöttetek';
+
+  @override
+  String get metainfoTheme =>
+      'Követi az asztali környezet témáját: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Egyszerre csak egy Linux-csomagot használjon. A Flatpak és a .pkg, .deb vagy .rpm csomag neve azonos, ezért ha az egyik nyitva van, a másik indítása nem nyit új ablakot, hanem előtérbe hozza a nyitottat.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'A TotalDrop már nyitva van a Flatpakból, ezért az az ablak került előtérbe. Egyszerre csak egy csomagot használjon: ennek megnyitásához lépjen ki abból az ablakból.';
+
+  @override
+  String get otherPackageSystem =>
+      'A TotalDrop már nyitva van a .pkg, .deb vagy .rpm csomagból, ezért az az ablak került előtérbe. Egyszerre csak egy csomagot használjon: ennek megnyitásához lépjen ki abból az ablakból.';
+
+  @override
+  String get sendText => 'Szöveg küldése';
+
+  @override
+  String get sendTextHint => 'Írd be vagy illeszd be a küldendő szöveget';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Egy szöveg legfeljebb $size lehet. A hosszabbat fájlként küldd.';
+  }
+
+  @override
+  String get sendTextDone => 'A szöveg hiánytalanul megérkezett.';
+
+  @override
+  String get sendClipboard => 'Vágólap küldése';
+
+  @override
+  String get sendClipboardEmpty => 'A vágólapon nincs szöveg.';
+
+  @override
+  String get receiveOfferText => 'Bejövő szöveg';
+
+  @override
+  String get receiveOfferTextNote =>
+      'A szöveg itt jelenik meg, nem kerül mentésre.';
+
+  @override
+  String get receiveTextDone => 'Szöveg fogadva és ellenőrizve';
+
+  @override
+  String get receiveTextDeclined => 'Elutasítottad a szöveget.';
+
+  @override
+  String get receiveTextHidden =>
+      'A szövegben rejtett karakterek vannak, ezek U+… alakban látszanak. Másoláskor a szöveget pontosan úgy kapod meg, ahogy érkezett.';
+
+  @override
+  String get sendTextHidden =>
+      'A szövegben rejtett karakterek vannak, például irányjelek. Ezek is elküldésre kerülnek vele.';
+
+  @override
+  String get sendClipboardKept =>
+      'A már beírt szöveg megmaradt, a vágólap nem lett felhasználva.';
+
+  @override
+  String get sendTextShortened =>
+      'Csak a szöveg eleje látható, a teljes szöveg elküldésre kerül.';
+
+  @override
+  String get receiveTextShortened =>
+      'Csak a szöveg eleje látható. A Szöveg másolása az egészet másolja.';
+
+  @override
+  String get copyText => 'Szöveg másolása';
+
+  @override
+  String get textCopied => 'Szöveg másolva';
+
+  @override
+  String get errorTextDamaged =>
+      'A szöveg nem érkezett meg hiánytalanul, ezért nem jelenik meg.';
+
+  @override
+  String get setupBackgroundTitle => 'Az átvitelek a háttérben is folytatódnak';
+
+  @override
+  String get setupBackgroundBody =>
+      'Hogy az átvitel akkor is folytatódjon, amikor másik alkalmazásra vált vagy lezárja a képernyőt, engedje, hogy a TotalDrop akkumulátorkorlátozás nélkül fusson. A TotalDrop csak egy Ön által indított átvitel közben dolgozik a háttérben.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'Az Android akkumulátor-optimalizálása ki van kapcsolva a TotalDrophoz.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'Az Android akkumulátor-optimalizálása be van kapcsolva a TotalDrophoz: az átvitel leállhat, amikor másik alkalmazásra vált.';
+
+  @override
+  String get setupBackgroundBattery => 'Akkumulátorbeállítások megnyitása';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'A TotalDrop alkalmazásinformációinál nyissa meg az Akkumulátor részt, és engedélyezze a korlátlan használatot. A beállítások neve telefononként eltér.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return 'A(z) $maker telefonoknak saját akkumulátorkímélőjük van';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Nyissa meg a TotalDrop akkumulátorkímélőjét is, és válassza a „Nincs korlátozás” lehetőséget. Ha a telefonon van Automatikus indítás, kapcsolja be a TotalDrophoz.';
+
+  @override
+  String get setupBackgroundMakerOpen =>
+      'A TotalDrop akkumulátorkímélőjének megnyitása';
+
+  @override
+  String get setupBackgroundAutostart => 'Automatikus indítás megnyitása';
+
+  @override
+  String get setupBackgroundSkip => 'Most nem';
+
+  @override
+  String get settingsBackground => 'Átvitel a háttérben';
+
+  @override
+  String get settingsBackgroundOpen => 'Akkumulátorbeállítások';
+}

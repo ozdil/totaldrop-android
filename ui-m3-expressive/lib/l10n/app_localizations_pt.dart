@@ -1,0 +1,2093 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Portuguese (`pt`).
+class AppLocalizationsPt extends AppLocalizations {
+  AppLocalizationsPt([String locale = 'pt']) : super(locale);
+
+  @override
+  String get appTagline =>
+      'Qualquer arquivo, para qualquer pessoa, em qualquer lugar.';
+
+  @override
+  String get homeSendTitle => 'Enviar';
+
+  @override
+  String get homeSendBody => 'Escolha arquivos e compartilhe um código curto';
+
+  @override
+  String get homeReceiveTitle => 'Receber';
+
+  @override
+  String get homeReceiveBody => 'Digite um código e salve os arquivos';
+
+  @override
+  String get homeFooter =>
+      'Criptografia de ponta a ponta. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get sendTitle => 'Enviar arquivos';
+
+  @override
+  String get sendAddFiles => 'Adicionar arquivos';
+
+  @override
+  String get sendEmpty => 'Nada selecionado ainda';
+
+  @override
+  String get sendEmptyHint =>
+      'Adicione os arquivos que você quer enviar. O destinatário recebe exatamente esses, mais nada.';
+
+  @override
+  String get sendStrongCode => 'Código mais forte';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Três palavras em vez de duas: muito mais difícil de adivinhar';
+
+  @override
+  String get sendCreateCode => 'Criar código';
+
+  @override
+  String get sendCounting => 'Contando…';
+
+  @override
+  String get sendRemove => 'Remover';
+
+  @override
+  String get sendPreparing => 'Preparando seus arquivos…';
+
+  @override
+  String get sendAddFailed =>
+      'Não foi possível adicionar os arquivos. Tente novamente. Se acontecer de novo, verifique se há espaço livre suficiente neste dispositivo ou escolha os arquivos em outro lugar.';
+
+  @override
+  String get sendYourCode => 'Seu código';
+
+  @override
+  String get sendCodeHint =>
+      'No outro dispositivo, abra o TotalDrop, toque em Receber e digite este código.';
+
+  @override
+  String get sendWaiting => 'Aguardando o destinatário…';
+
+  @override
+  String get sendCopy => 'Copiar';
+
+  @override
+  String get sendCopied => 'Código copiado';
+
+  @override
+  String get sendShare => 'Compartilhar';
+
+  @override
+  String sendShareText(String code) {
+    return 'Receba meus arquivos com o TotalDrop. Código: $code';
+  }
+
+  @override
+  String get sendSending => 'Enviando';
+
+  @override
+  String get sendDone => 'Enviado e verificado';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Todos os $countString arquivos chegaram intactos.',
+      many: 'Todos os $countString de arquivos chegaram intactos.',
+      one: '$countString arquivo chegou intacto.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString arquivos não chegaram intactos e foram descartados.',
+      many:
+          '$countString de arquivos não chegaram intactos e foram descartados.',
+      one: '$countString arquivo não chegou intacto e foi descartado.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString itens',
+      many: '$countString de itens',
+      one: '$countString item',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Receber arquivos';
+
+  @override
+  String get receiveCodeLabel => 'Código';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Peça o código a quem está enviando.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Isso não parece um código. Ele começa com um número, seguido de duas ou três palavras.';
+
+  @override
+  String get receivePaste => 'Colar';
+
+  @override
+  String get receiveConnect => 'Conectar';
+
+  @override
+  String get receiveConnecting => 'Conectando com segurança…';
+
+  @override
+  String get receiveOffer => 'Arquivos recebidos';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      files,
+      locale: localeName,
+      other: '$filesString arquivos',
+      many: '$filesString de arquivos',
+      one: '$filesString arquivo',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'e mais $countString';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Salvo em $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Aceitar';
+
+  @override
+  String get receiveDecline => 'Recusar';
+
+  @override
+  String get receiveDeclined => 'Você recusou os arquivos.';
+
+  @override
+  String get receiveReceiving => 'Recebendo';
+
+  @override
+  String get receiveDone => 'Recebido e verificado';
+
+  @override
+  String get verificationTitle => 'Palavras de verificação';
+
+  @override
+  String get verificationHint =>
+      'A outra pessoa vê as mesmas quatro palavras. Se forem diferentes, pare.';
+
+  @override
+  String get sameNetworkNote =>
+      'Funciona pela internet. Quando os dispositivos não conseguem se alcançar diretamente, a transferência criptografada passa pelo servidor de retransmissão, que não consegue lê-la.';
+
+  @override
+  String get done => 'Concluído';
+
+  @override
+  String get tryAgain => 'Tentar de novo';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get cancelTransferTitle => 'Parar esta transferência?';
+
+  @override
+  String get cancelTransferBody =>
+      'O outro lado será avisado de que a transferência parou.';
+
+  @override
+  String get keepGoing => 'Continuar';
+
+  @override
+  String get stop => 'Parar';
+
+  @override
+  String get moreInfo => 'Detalhes';
+
+  @override
+  String get errorWrongCode =>
+      'O código não correspondeu. Ele foi digitado errado ou alguém tentou interceptar a transferência. Nada foi enviado. Comece de novo com um código novo.';
+
+  @override
+  String get errorPeerLeft =>
+      'O outro lado saiu antes de a transferência terminar.';
+
+  @override
+  String get errorDeclined => 'O destinatário recusou os arquivos.';
+
+  @override
+  String get errorCancelled => 'O outro lado parou a transferência.';
+
+  @override
+  String get errorStopped => 'Parada neste dispositivo.';
+
+  @override
+  String get errorInvalidCode => 'Esse código não é válido.';
+
+  @override
+  String get errorServer =>
+      'Não foi possível acessar o servidor do TotalDrop. Verifique sua conexão com a internet.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Esse código não está em uso: foi digitado errado, expirou ou já foi usado. Peça um novo a quem está enviando.';
+
+  @override
+  String get errorCodeExpired =>
+      'O código expirou antes que alguém o usasse. Envie de novo para receber um código novo.';
+
+  @override
+  String get errorBadServer =>
+      'O endereço do servidor não é válido. Ele precisa começar com wss://.';
+
+  @override
+  String get errorConnect =>
+      'Não foi possível conectar ao outro dispositivo. Verifique se os dois dispositivos estão on-line e tente de novo.';
+
+  @override
+  String get errorInvalidOffer =>
+      'A oferta violou uma regra de segurança e por isso foi recusada.';
+
+  @override
+  String get errorStorage => 'Não foi possível ler ou salvar um arquivo.';
+
+  @override
+  String get errorOther => 'Algo deu errado.';
+
+  @override
+  String get causeTimedOut =>
+      'A conexão parou de responder. Um dos dispositivos pode ter perdido a rede ou entrado em suspensão.';
+
+  @override
+  String get causeConnectionLost => 'A conexão com o outro dispositivo caiu.';
+
+  @override
+  String get causeNoRoute =>
+      'Não foi possível alcançar o outro dispositivo, nem diretamente nem pelo servidor de retransmissão.';
+
+  @override
+  String get causeRelay =>
+      'Não foi possível alcançar o servidor de retransmissão ou ele não está configurado, ou os dois dispositivos não usam o mesmo.';
+
+  @override
+  String get causeProtocol =>
+      'O outro dispositivo enviou algo que esta versão não entende. Atualizar o TotalDrop nos dois dispositivos pode ajudar.';
+
+  @override
+  String get causeDiskFull =>
+      'Não há espaço livre suficiente neste dispositivo.';
+
+  @override
+  String get causeNoPermission =>
+      'O TotalDrop não tem permissão para ler ou gravar um arquivo ou pasta de que precisa.';
+
+  @override
+  String get causeNotFound =>
+      'Um arquivo ou pasta não foi encontrado. Ele pode ter sido movido ou excluído.';
+
+  @override
+  String get causeReadOnly =>
+      'A pasta está em um disco em que não é possível gravar.';
+
+  @override
+  String get causeFileChanged =>
+      'Um arquivo mudou enquanto era enviado. Envie de novo depois de salvá-lo.';
+
+  @override
+  String get technicalDetail =>
+      'Mensagem técnica em inglês, para incluir ao relatar um problema:';
+
+  @override
+  String get settingsServer => 'Servidor de encontro';
+
+  @override
+  String get settingsServerHelp =>
+      'Ajuda dois dispositivos com o mesmo código a se encontrarem. Ele nunca vê seus arquivos nem suas chaves.';
+
+  @override
+  String get settingsServerReset => 'Usar o padrão';
+
+  @override
+  String get settingsServerInvalid => 'Precisa começar com wss://';
+
+  @override
+  String get settingsSave => 'Salvar';
+
+  @override
+  String get settingsAbout => 'Sobre';
+
+  @override
+  String get settingsAboutBody =>
+      'O TotalDrop é gratuito e de código aberto, mantido por doações. Licença GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Privacidade';
+
+  @override
+  String get settingsPrivacyBody =>
+      'O servidor de encontro, o servidor de retransmissão e o servidor STUN da Cloudflare veem seu endereço IP, e o outro dispositivo também vê quando vocês se conectam diretamente (a menos que o modo de privacidade esteja ativado). Nenhum deles vê nomes de arquivos, conteúdos ou chaves, e nossos servidores não guardam registros. Os arquivos vão diretamente entre os dispositivos quando possível; caso contrário, passam pelo servidor de retransmissão. Nos dois casos, têm criptografia de ponta a ponta.';
+
+  @override
+  String get privacyMode => 'Ocultar meu endereço do outro dispositivo';
+
+  @override
+  String get privacyModeHint =>
+      'Modo de privacidade: tudo passa pelo servidor de retransmissão, então o outro dispositivo nunca descobre seu endereço IP. É mais lento, e o outro dispositivo precisa usar o mesmo servidor de retransmissão (o padrão usa).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Ativar o modo de privacidade?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'As transferências ficarão mais lentas, porque nada passa diretamente entre os dispositivos. O servidor de encontro e o servidor de retransmissão continuam vendo seu endereço IP; eles nunca veem seus arquivos nem suas chaves.';
+
+  @override
+  String get privacyModeTurnOn => 'Ativar';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Versão $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Esta tradução está em revisão. Ajude a melhorá-la no GitHub.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Códigos e palavras de verificação ficam sempre em inglês, para que dois dispositivos em idiomas diferentes mostrem as mesmas palavras.';
+
+  @override
+  String get sendDropHere => 'Solte os arquivos aqui';
+
+  @override
+  String get sendDropHint =>
+      'Você também pode arrastar arquivos para esta janela.';
+
+  @override
+  String get keepAwakeReason =>
+      'O TotalDrop está enviando ou recebendo arquivos';
+
+  @override
+  String get sendQrHint =>
+      'Ou escaneie este código com a câmera do outro dispositivo.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Confira as palavras e aguarde o destinatário aceitar.';
+
+  @override
+  String get receiveFromImage => 'Ler QR de uma imagem';
+
+  @override
+  String get receiveQrNotFound =>
+      'Não há nenhum código do TotalDrop nessa imagem.';
+
+  @override
+  String get pickTitle => 'Escolha os arquivos para enviar';
+
+  @override
+  String get pickImageTitle => 'Escolha uma imagem com um QR code';
+
+  @override
+  String get openFolder => 'Abrir pasta';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get codeSuggestions => 'Sugestões';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString%';
+  }
+
+  @override
+  String get editUndo => 'Desfazer';
+
+  @override
+  String get editRedo => 'Refazer';
+
+  @override
+  String get editCut => 'Recortar';
+
+  @override
+  String get editCopy => 'Copiar';
+
+  @override
+  String get editPaste => 'Colar';
+
+  @override
+  String get editDelete => 'Excluir';
+
+  @override
+  String get editSelectAll => 'Selecionar tudo';
+
+  @override
+  String get transferNoticeChannel => 'Transferências';
+
+  @override
+  String get transferNoticeSending => 'Enviando com o TotalDrop';
+
+  @override
+  String get transferNoticeReceiving => 'Recebendo com o TotalDrop';
+
+  @override
+  String get transferNoticeBody => 'Continua enquanto você usa outros apps.';
+
+  @override
+  String get shareBusy =>
+      'Uma transferência ainda está em andamento. Espere terminar ou pare-a e compartilhe de novo.';
+
+  @override
+  String get linkBusy =>
+      'Termine ou pare o que está na tela e abra o link de novo.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count itens compartilhados não puderam ser lidos e foram deixados de fora.',
+      many:
+          '$count de itens compartilhados não puderam ser lidos e foram deixados de fora.',
+      one: '$count item compartilhado não pôde ser lido e foi deixado de fora.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Transferência de arquivos';
+
+  @override
+  String get desktopComment =>
+      'Envie arquivos direto para outro dispositivo, com criptografia de ponta a ponta';
+
+  @override
+  String get desktopKeywords =>
+      'enviar;receber;compartilhar;transferir;arquivos;';
+
+  @override
+  String get desktopSendWith => 'Enviar com o TotalDrop';
+
+  @override
+  String get metainfoSummary => 'Envie arquivos direto para outro dispositivo';
+
+  @override
+  String get metainfoAbout =>
+      'O TotalDrop envia arquivos e pastas de um dispositivo para outro, com criptografia de ponta a ponta. Escolha os arquivos, compartilhe um código curto ou um QR code e o outro dispositivo os recebe. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get metainfoVerified =>
+      'Cada arquivo é verificado ao chegar; arquivos danificados são descartados';
+
+  @override
+  String get metainfoWords =>
+      'Quatro palavras de verificação mostram que ninguém está no meio';
+
+  @override
+  String get metainfoTheme =>
+      'Segue o tema da sua área de trabalho: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Use um pacote Linux por vez. O Flatpak e o pacote .pkg, .deb ou .rpm compartilham um nome, então enquanto um está aberto, iniciar o outro traz a janela aberta para a frente em vez de abrir uma segunda.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'O TotalDrop já está aberto pelo Flatpak, então essa janela foi trazida para a frente. Use um pacote por vez: feche essa janela para abrir este.';
+
+  @override
+  String get otherPackageSystem =>
+      'O TotalDrop já está aberto pelo pacote .pkg, .deb ou .rpm, então essa janela foi trazida para a frente. Use um pacote por vez: feche essa janela para abrir este.';
+
+  @override
+  String get sendText => 'Enviar texto';
+
+  @override
+  String get sendTextHint => 'Digite ou cole o texto que deseja enviar';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Um texto pode ter no máximo $size. Envie um texto maior como arquivo.';
+  }
+
+  @override
+  String get sendTextDone => 'O texto chegou íntegro.';
+
+  @override
+  String get sendClipboard => 'Enviar área de transferência';
+
+  @override
+  String get sendClipboardEmpty => 'A área de transferência não tem texto.';
+
+  @override
+  String get receiveOfferText => 'Texto recebido';
+
+  @override
+  String get receiveOfferTextNote => 'O texto é exibido aqui, não é salvo.';
+
+  @override
+  String get receiveTextDone => 'Texto recebido e verificado';
+
+  @override
+  String get receiveTextDeclined => 'Você recusou o texto.';
+
+  @override
+  String get receiveTextHidden =>
+      'O texto contém caracteres ocultos, exibidos como U+…. Ao copiar, você obtém o texto exatamente como chegou.';
+
+  @override
+  String get sendTextHidden =>
+      'O texto contém caracteres ocultos, como marcas de direção. Eles são enviados junto.';
+
+  @override
+  String get sendClipboardKept =>
+      'O texto já digitado foi mantido; a área de transferência não foi usada.';
+
+  @override
+  String get sendTextShortened =>
+      'Só o início do texto é mostrado; ele é enviado inteiro.';
+
+  @override
+  String get receiveTextShortened =>
+      'Só o início do texto é mostrado. Copiar texto copia tudo.';
+
+  @override
+  String get copyText => 'Copiar texto';
+
+  @override
+  String get textCopied => 'Texto copiado';
+
+  @override
+  String get errorTextDamaged =>
+      'O texto não chegou íntegro, por isso não é exibido.';
+
+  @override
+  String get setupBackgroundTitle =>
+      'Manter as transferências em segundo plano';
+
+  @override
+  String get setupBackgroundBody =>
+      'Para que uma transferência continue quando você troca de app ou bloqueia a tela, permita que o TotalDrop funcione sem restrições de bateria. O TotalDrop só trabalha em segundo plano enquanto uma transferência iniciada por você está em andamento.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'A otimização de bateria do Android está desativada para o TotalDrop.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'A otimização de bateria do Android está ativada para o TotalDrop: uma transferência pode parar quando você troca de app.';
+
+  @override
+  String get setupBackgroundBattery => 'Abrir configurações de bateria';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Na página de informações do app TotalDrop, abra Bateria e permita o uso sem restrições. Os nomes dessas configurações mudam de um celular para outro.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return 'Os celulares $maker têm uma economia de bateria própria';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Abra também a economia de bateria do TotalDrop e escolha \"Sem restrições\". Se o celular tiver Início automático, ative-o para o TotalDrop.';
+
+  @override
+  String get setupBackgroundMakerOpen =>
+      'Abrir a economia de bateria do TotalDrop';
+
+  @override
+  String get setupBackgroundAutostart => 'Abrir Início automático';
+
+  @override
+  String get setupBackgroundSkip => 'Agora não';
+
+  @override
+  String get settingsBackground => 'Transferências em segundo plano';
+
+  @override
+  String get settingsBackgroundOpen => 'Configurações de bateria';
+}
+
+/// The translations for Portuguese, as used in Brazil (`pt_BR`).
+class AppLocalizationsPtBr extends AppLocalizationsPt {
+  AppLocalizationsPtBr() : super('pt_BR');
+
+  @override
+  String get appTagline =>
+      'Qualquer arquivo, para qualquer pessoa, em qualquer lugar.';
+
+  @override
+  String get homeSendTitle => 'Enviar';
+
+  @override
+  String get homeSendBody => 'Escolha arquivos e compartilhe um código curto';
+
+  @override
+  String get homeReceiveTitle => 'Receber';
+
+  @override
+  String get homeReceiveBody => 'Digite um código e salve os arquivos';
+
+  @override
+  String get homeFooter =>
+      'Criptografia de ponta a ponta. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get sendTitle => 'Enviar arquivos';
+
+  @override
+  String get sendAddFiles => 'Adicionar arquivos';
+
+  @override
+  String get sendEmpty => 'Nada selecionado ainda';
+
+  @override
+  String get sendEmptyHint =>
+      'Adicione os arquivos que você quer enviar. O destinatário recebe exatamente esses, mais nada.';
+
+  @override
+  String get sendStrongCode => 'Código mais forte';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Três palavras em vez de duas: muito mais difícil de adivinhar';
+
+  @override
+  String get sendCreateCode => 'Criar código';
+
+  @override
+  String get sendCounting => 'Contando…';
+
+  @override
+  String get sendRemove => 'Remover';
+
+  @override
+  String get sendPreparing => 'Preparando seus arquivos…';
+
+  @override
+  String get sendAddFailed =>
+      'Não foi possível adicionar os arquivos. Tente novamente. Se acontecer de novo, verifique se há espaço livre suficiente neste dispositivo ou escolha os arquivos em outro lugar.';
+
+  @override
+  String get sendYourCode => 'Seu código';
+
+  @override
+  String get sendCodeHint =>
+      'No outro dispositivo, abra o TotalDrop, toque em Receber e digite este código.';
+
+  @override
+  String get sendWaiting => 'Aguardando o destinatário…';
+
+  @override
+  String get sendCopy => 'Copiar';
+
+  @override
+  String get sendCopied => 'Código copiado';
+
+  @override
+  String get sendShare => 'Compartilhar';
+
+  @override
+  String sendShareText(String code) {
+    return 'Receba meus arquivos com o TotalDrop. Código: $code';
+  }
+
+  @override
+  String get sendSending => 'Enviando';
+
+  @override
+  String get sendDone => 'Enviado e verificado';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Todos os $countString arquivos chegaram intactos.',
+      many: 'Todos os $countString de arquivos chegaram intactos.',
+      one: '$countString arquivo chegou intacto.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString arquivos não chegaram intactos e foram descartados.',
+      many:
+          '$countString de arquivos não chegaram intactos e foram descartados.',
+      one: '$countString arquivo não chegou intacto e foi descartado.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString itens',
+      many: '$countString de itens',
+      one: '$countString item',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Receber arquivos';
+
+  @override
+  String get receiveCodeLabel => 'Código';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Peça o código a quem está enviando.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Isso não parece um código. Ele começa com um número, seguido de duas ou três palavras.';
+
+  @override
+  String get receivePaste => 'Colar';
+
+  @override
+  String get receiveConnect => 'Conectar';
+
+  @override
+  String get receiveConnecting => 'Conectando com segurança…';
+
+  @override
+  String get receiveOffer => 'Arquivos recebidos';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      files,
+      locale: localeName,
+      other: '$filesString arquivos',
+      many: '$filesString de arquivos',
+      one: '$filesString arquivo',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'e mais $countString';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Salvo em $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Aceitar';
+
+  @override
+  String get receiveDecline => 'Recusar';
+
+  @override
+  String get receiveDeclined => 'Você recusou os arquivos.';
+
+  @override
+  String get receiveReceiving => 'Recebendo';
+
+  @override
+  String get receiveDone => 'Recebido e verificado';
+
+  @override
+  String get verificationTitle => 'Palavras de verificação';
+
+  @override
+  String get verificationHint =>
+      'A outra pessoa vê as mesmas quatro palavras. Se forem diferentes, pare.';
+
+  @override
+  String get sameNetworkNote =>
+      'Funciona pela internet. Quando os dispositivos não conseguem se alcançar diretamente, a transferência criptografada passa pelo servidor de retransmissão, que não consegue lê-la.';
+
+  @override
+  String get done => 'Concluído';
+
+  @override
+  String get tryAgain => 'Tentar de novo';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get cancelTransferTitle => 'Parar esta transferência?';
+
+  @override
+  String get cancelTransferBody =>
+      'O outro lado será avisado de que a transferência parou.';
+
+  @override
+  String get keepGoing => 'Continuar';
+
+  @override
+  String get stop => 'Parar';
+
+  @override
+  String get moreInfo => 'Detalhes';
+
+  @override
+  String get errorWrongCode =>
+      'O código não correspondeu. Ele foi digitado errado ou alguém tentou interceptar a transferência. Nada foi enviado. Comece de novo com um código novo.';
+
+  @override
+  String get errorPeerLeft =>
+      'O outro lado saiu antes de a transferência terminar.';
+
+  @override
+  String get errorDeclined => 'O destinatário recusou os arquivos.';
+
+  @override
+  String get errorCancelled => 'O outro lado parou a transferência.';
+
+  @override
+  String get errorStopped => 'Parada neste dispositivo.';
+
+  @override
+  String get errorInvalidCode => 'Esse código não é válido.';
+
+  @override
+  String get errorServer =>
+      'Não foi possível acessar o servidor do TotalDrop. Verifique sua conexão com a internet.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Esse código não está em uso: foi digitado errado, expirou ou já foi usado. Peça um novo a quem está enviando.';
+
+  @override
+  String get errorCodeExpired =>
+      'O código expirou antes que alguém o usasse. Envie de novo para receber um código novo.';
+
+  @override
+  String get errorBadServer =>
+      'O endereço do servidor não é válido. Ele precisa começar com wss://.';
+
+  @override
+  String get errorConnect =>
+      'Não foi possível conectar ao outro dispositivo. Verifique se os dois dispositivos estão on-line e tente de novo.';
+
+  @override
+  String get errorInvalidOffer =>
+      'A oferta violou uma regra de segurança e por isso foi recusada.';
+
+  @override
+  String get errorStorage => 'Não foi possível ler ou salvar um arquivo.';
+
+  @override
+  String get errorOther => 'Algo deu errado.';
+
+  @override
+  String get causeTimedOut =>
+      'A conexão parou de responder. Um dos dispositivos pode ter perdido a rede ou entrado em suspensão.';
+
+  @override
+  String get causeConnectionLost => 'A conexão com o outro dispositivo caiu.';
+
+  @override
+  String get causeNoRoute =>
+      'Não foi possível alcançar o outro dispositivo, nem diretamente nem pelo servidor de retransmissão.';
+
+  @override
+  String get causeRelay =>
+      'Não foi possível alcançar o servidor de retransmissão ou ele não está configurado, ou os dois dispositivos não usam o mesmo.';
+
+  @override
+  String get causeProtocol =>
+      'O outro dispositivo enviou algo que esta versão não entende. Atualizar o TotalDrop nos dois dispositivos pode ajudar.';
+
+  @override
+  String get causeDiskFull =>
+      'Não há espaço livre suficiente neste dispositivo.';
+
+  @override
+  String get causeNoPermission =>
+      'O TotalDrop não tem permissão para ler ou gravar um arquivo ou pasta de que precisa.';
+
+  @override
+  String get causeNotFound =>
+      'Um arquivo ou pasta não foi encontrado. Ele pode ter sido movido ou excluído.';
+
+  @override
+  String get causeReadOnly =>
+      'A pasta está em um disco em que não é possível gravar.';
+
+  @override
+  String get causeFileChanged =>
+      'Um arquivo mudou enquanto era enviado. Envie de novo depois de salvá-lo.';
+
+  @override
+  String get technicalDetail =>
+      'Mensagem técnica em inglês, para incluir ao relatar um problema:';
+
+  @override
+  String get settingsServer => 'Servidor de encontro';
+
+  @override
+  String get settingsServerHelp =>
+      'Ajuda dois dispositivos com o mesmo código a se encontrarem. Ele nunca vê seus arquivos nem suas chaves.';
+
+  @override
+  String get settingsServerReset => 'Usar o padrão';
+
+  @override
+  String get settingsServerInvalid => 'Precisa começar com wss://';
+
+  @override
+  String get settingsSave => 'Salvar';
+
+  @override
+  String get settingsAbout => 'Sobre';
+
+  @override
+  String get settingsAboutBody =>
+      'O TotalDrop é gratuito e de código aberto, mantido por doações. Licença GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Privacidade';
+
+  @override
+  String get settingsPrivacyBody =>
+      'O servidor de encontro, o servidor de retransmissão e o servidor STUN da Cloudflare veem seu endereço IP, e o outro dispositivo também vê quando vocês se conectam diretamente (a menos que o modo de privacidade esteja ativado). Nenhum deles vê nomes de arquivos, conteúdos ou chaves, e nossos servidores não guardam registros. Os arquivos vão diretamente entre os dispositivos quando possível; caso contrário, passam pelo servidor de retransmissão. Nos dois casos, têm criptografia de ponta a ponta.';
+
+  @override
+  String get privacyMode => 'Ocultar meu endereço do outro dispositivo';
+
+  @override
+  String get privacyModeHint =>
+      'Modo de privacidade: tudo passa pelo servidor de retransmissão, então o outro dispositivo nunca descobre seu endereço IP. É mais lento, e o outro dispositivo precisa usar o mesmo servidor de retransmissão (o padrão usa).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Ativar o modo de privacidade?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'As transferências ficarão mais lentas, porque nada passa diretamente entre os dispositivos. O servidor de encontro e o servidor de retransmissão continuam vendo seu endereço IP; eles nunca veem seus arquivos nem suas chaves.';
+
+  @override
+  String get privacyModeTurnOn => 'Ativar';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Versão $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Esta tradução está em revisão. Ajude a melhorá-la no GitHub.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Códigos e palavras de verificação ficam sempre em inglês, para que dois dispositivos em idiomas diferentes mostrem as mesmas palavras.';
+
+  @override
+  String get sendDropHere => 'Solte os arquivos aqui';
+
+  @override
+  String get sendDropHint =>
+      'Você também pode arrastar arquivos para esta janela.';
+
+  @override
+  String get keepAwakeReason =>
+      'O TotalDrop está enviando ou recebendo arquivos';
+
+  @override
+  String get sendQrHint =>
+      'Ou escaneie este código com a câmera do outro dispositivo.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Confira as palavras e aguarde o destinatário aceitar.';
+
+  @override
+  String get receiveFromImage => 'Ler QR de uma imagem';
+
+  @override
+  String get receiveQrNotFound =>
+      'Não há nenhum código do TotalDrop nessa imagem.';
+
+  @override
+  String get pickTitle => 'Escolha os arquivos para enviar';
+
+  @override
+  String get pickImageTitle => 'Escolha uma imagem com um QR code';
+
+  @override
+  String get openFolder => 'Abrir pasta';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get codeSuggestions => 'Sugestões';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString%';
+  }
+
+  @override
+  String get editUndo => 'Desfazer';
+
+  @override
+  String get editRedo => 'Refazer';
+
+  @override
+  String get editCut => 'Recortar';
+
+  @override
+  String get editCopy => 'Copiar';
+
+  @override
+  String get editPaste => 'Colar';
+
+  @override
+  String get editDelete => 'Excluir';
+
+  @override
+  String get editSelectAll => 'Selecionar tudo';
+
+  @override
+  String get transferNoticeChannel => 'Transferências';
+
+  @override
+  String get transferNoticeSending => 'Enviando com o TotalDrop';
+
+  @override
+  String get transferNoticeReceiving => 'Recebendo com o TotalDrop';
+
+  @override
+  String get transferNoticeBody => 'Continua enquanto você usa outros apps.';
+
+  @override
+  String get shareBusy =>
+      'Uma transferência ainda está em andamento. Espere terminar ou pare-a e compartilhe de novo.';
+
+  @override
+  String get linkBusy =>
+      'Termine ou pare o que está na tela e abra o link de novo.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count itens compartilhados não puderam ser lidos e foram deixados de fora.',
+      many:
+          '$count de itens compartilhados não puderam ser lidos e foram deixados de fora.',
+      one: '$count item compartilhado não pôde ser lido e foi deixado de fora.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Transferência de arquivos';
+
+  @override
+  String get desktopComment =>
+      'Envie arquivos direto para outro dispositivo, com criptografia de ponta a ponta';
+
+  @override
+  String get desktopKeywords =>
+      'enviar;receber;compartilhar;transferir;arquivos;';
+
+  @override
+  String get desktopSendWith => 'Enviar com o TotalDrop';
+
+  @override
+  String get metainfoSummary => 'Envie arquivos direto para outro dispositivo';
+
+  @override
+  String get metainfoAbout =>
+      'O TotalDrop envia arquivos e pastas de um dispositivo para outro, com criptografia de ponta a ponta. Escolha os arquivos, compartilhe um código curto ou um QR code e o outro dispositivo os recebe. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get metainfoVerified =>
+      'Cada arquivo é verificado ao chegar; arquivos danificados são descartados';
+
+  @override
+  String get metainfoWords =>
+      'Quatro palavras de verificação mostram que ninguém está no meio';
+
+  @override
+  String get metainfoTheme =>
+      'Segue o tema da sua área de trabalho: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Use um pacote Linux por vez. O Flatpak e o pacote .pkg, .deb ou .rpm compartilham um nome, então enquanto um está aberto, iniciar o outro traz a janela aberta para a frente em vez de abrir uma segunda.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'O TotalDrop já está aberto pelo Flatpak, então essa janela foi trazida para a frente. Use um pacote por vez: feche essa janela para abrir este.';
+
+  @override
+  String get otherPackageSystem =>
+      'O TotalDrop já está aberto pelo pacote .pkg, .deb ou .rpm, então essa janela foi trazida para a frente. Use um pacote por vez: feche essa janela para abrir este.';
+
+  @override
+  String get sendText => 'Enviar texto';
+
+  @override
+  String get sendTextHint => 'Digite ou cole o texto que deseja enviar';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Um texto pode ter no máximo $size. Envie um texto maior como arquivo.';
+  }
+
+  @override
+  String get sendTextDone => 'O texto chegou íntegro.';
+
+  @override
+  String get sendClipboard => 'Enviar área de transferência';
+
+  @override
+  String get sendClipboardEmpty => 'A área de transferência não tem texto.';
+
+  @override
+  String get receiveOfferText => 'Texto recebido';
+
+  @override
+  String get receiveOfferTextNote => 'O texto é exibido aqui, não é salvo.';
+
+  @override
+  String get receiveTextDone => 'Texto recebido e verificado';
+
+  @override
+  String get receiveTextDeclined => 'Você recusou o texto.';
+
+  @override
+  String get receiveTextHidden =>
+      'O texto contém caracteres ocultos, exibidos como U+…. Ao copiar, você obtém o texto exatamente como chegou.';
+
+  @override
+  String get sendTextHidden =>
+      'O texto contém caracteres ocultos, como marcas de direção. Eles são enviados junto.';
+
+  @override
+  String get sendClipboardKept =>
+      'O texto já digitado foi mantido; a área de transferência não foi usada.';
+
+  @override
+  String get sendTextShortened =>
+      'Só o início do texto é mostrado; ele é enviado inteiro.';
+
+  @override
+  String get receiveTextShortened =>
+      'Só o início do texto é mostrado. Copiar texto copia tudo.';
+
+  @override
+  String get copyText => 'Copiar texto';
+
+  @override
+  String get textCopied => 'Texto copiado';
+
+  @override
+  String get errorTextDamaged =>
+      'O texto não chegou íntegro, por isso não é exibido.';
+
+  @override
+  String get setupBackgroundTitle =>
+      'Manter as transferências em segundo plano';
+
+  @override
+  String get setupBackgroundBody =>
+      'Para que uma transferência continue quando você troca de app ou bloqueia a tela, permita que o TotalDrop funcione sem restrições de bateria. O TotalDrop só trabalha em segundo plano enquanto uma transferência iniciada por você está em andamento.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'A otimização de bateria do Android está desativada para o TotalDrop.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'A otimização de bateria do Android está ativada para o TotalDrop: uma transferência pode parar quando você troca de app.';
+
+  @override
+  String get setupBackgroundBattery => 'Abrir configurações de bateria';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Na página de informações do app TotalDrop, abra Bateria e permita o uso sem restrições. Os nomes dessas configurações mudam de um celular para outro.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return 'Os celulares $maker têm uma economia de bateria própria';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Abra também a economia de bateria do TotalDrop e escolha \"Sem restrições\". Se o celular tiver Início automático, ative-o para o TotalDrop.';
+
+  @override
+  String get setupBackgroundMakerOpen =>
+      'Abrir a economia de bateria do TotalDrop';
+
+  @override
+  String get setupBackgroundAutostart => 'Abrir Início automático';
+
+  @override
+  String get setupBackgroundSkip => 'Agora não';
+
+  @override
+  String get settingsBackground => 'Transferências em segundo plano';
+
+  @override
+  String get settingsBackgroundOpen => 'Configurações de bateria';
+}
+
+/// The translations for Portuguese, as used in Portugal (`pt_PT`).
+class AppLocalizationsPtPt extends AppLocalizationsPt {
+  AppLocalizationsPtPt() : super('pt_PT');
+
+  @override
+  String get appTagline =>
+      'Qualquer ficheiro, para qualquer pessoa, em qualquer lugar.';
+
+  @override
+  String get homeSendTitle => 'Enviar';
+
+  @override
+  String get homeSendBody => 'Escolha ficheiros e partilhe um código curto';
+
+  @override
+  String get homeReceiveTitle => 'Receber';
+
+  @override
+  String get homeReceiveBody => 'Introduza um código e guarde os ficheiros';
+
+  @override
+  String get homeFooter =>
+      'Encriptação ponto a ponto. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get settings => 'Definições';
+
+  @override
+  String get sendTitle => 'Enviar ficheiros';
+
+  @override
+  String get sendAddFiles => 'Adicionar ficheiros';
+
+  @override
+  String get sendEmpty => 'Ainda não há nada selecionado';
+
+  @override
+  String get sendEmptyHint =>
+      'Adicione os ficheiros que pretende enviar. O destinatário recebe exatamente estes, mais nada.';
+
+  @override
+  String get sendStrongCode => 'Código mais forte';
+
+  @override
+  String get sendStrongCodeHint =>
+      'Três palavras em vez de duas: muito mais difícil de adivinhar';
+
+  @override
+  String get sendCreateCode => 'Criar código';
+
+  @override
+  String get sendCounting => 'A contar…';
+
+  @override
+  String get sendRemove => 'Remover';
+
+  @override
+  String get sendPreparing => 'A preparar os seus ficheiros…';
+
+  @override
+  String get sendAddFailed =>
+      'Não foi possível adicionar os ficheiros. Tente novamente. Se voltar a acontecer, verifique se há espaço livre suficiente neste dispositivo ou escolha os ficheiros noutro local.';
+
+  @override
+  String get sendYourCode => 'O seu código';
+
+  @override
+  String get sendCodeHint =>
+      'No outro dispositivo, abra o TotalDrop, toque em Receber e introduza este código.';
+
+  @override
+  String get sendWaiting => 'A aguardar o destinatário…';
+
+  @override
+  String get sendCopy => 'Copiar';
+
+  @override
+  String get sendCopied => 'Código copiado';
+
+  @override
+  String get sendShare => 'Partilhar';
+
+  @override
+  String sendShareText(String code) {
+    return 'Receba os meus ficheiros com o TotalDrop. Código: $code';
+  }
+
+  @override
+  String get sendSending => 'A enviar';
+
+  @override
+  String get sendDone => 'Enviado e verificado';
+
+  @override
+  String sendDoneBody(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Todos os $countString ficheiros chegaram intactos.',
+      many: 'Todos os $countString de ficheiros chegaram intactos.',
+      one: 'O ficheiro chegou intacto.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sendSomeFailed(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$countString ficheiros não chegaram intactos e foram descartados.',
+      many:
+          '$countString de ficheiros não chegaram intactos e foram descartados.',
+      one: 'Um ficheiro não chegou intacto e foi descartado.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String itemsAndSize(int count, String size) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString itens',
+      many: '$countString de itens',
+      one: '$countString item',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String get receiveTitle => 'Receber ficheiros';
+
+  @override
+  String get receiveCodeLabel => 'Código';
+
+  @override
+  String get receiveCodeHint => '7-harbor-rocket';
+
+  @override
+  String get receiveCodeHelp => 'Peça o código a quem está a enviar.';
+
+  @override
+  String get receiveCodeInvalid =>
+      'Isto não parece um código. Começa com um número, seguido de duas ou três palavras.';
+
+  @override
+  String get receivePaste => 'Colar';
+
+  @override
+  String get receiveConnect => 'Ligar';
+
+  @override
+  String get receiveConnecting => 'A estabelecer ligação segura…';
+
+  @override
+  String get receiveOffer => 'Ficheiros recebidos';
+
+  @override
+  String receiveOfferSummary(int files, String size) {
+    final intl.NumberFormat filesNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String filesString = filesNumberFormat.format(files);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      files,
+      locale: localeName,
+      other: '$filesString ficheiros',
+      many: '$filesString de ficheiros',
+      one: '$filesString ficheiro',
+    );
+    return '$_temp0 · $size';
+  }
+
+  @override
+  String receiveAndMore(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'e mais $countString';
+  }
+
+  @override
+  String receiveSaveTo(String folder) {
+    return 'Guardado em $folder';
+  }
+
+  @override
+  String get receiveAccept => 'Aceitar';
+
+  @override
+  String get receiveDecline => 'Recusar';
+
+  @override
+  String get receiveDeclined => 'Recusou os ficheiros.';
+
+  @override
+  String get receiveReceiving => 'A receber';
+
+  @override
+  String get receiveDone => 'Recebido e verificado';
+
+  @override
+  String get verificationTitle => 'Palavras de verificação';
+
+  @override
+  String get verificationHint =>
+      'A outra pessoa vê as mesmas quatro palavras. Se forem diferentes, pare.';
+
+  @override
+  String get sameNetworkNote =>
+      'Funciona através da Internet. Quando os dispositivos não conseguem comunicar diretamente, a transferência encriptada passa pelo servidor de retransmissão, que não a consegue ler.';
+
+  @override
+  String get done => 'Concluído';
+
+  @override
+  String get tryAgain => 'Tentar novamente';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get cancelTransferTitle => 'Parar esta transferência?';
+
+  @override
+  String get cancelTransferBody =>
+      'O outro lado será informado de que a transferência parou.';
+
+  @override
+  String get keepGoing => 'Continuar';
+
+  @override
+  String get stop => 'Parar';
+
+  @override
+  String get moreInfo => 'Detalhes';
+
+  @override
+  String get errorWrongCode =>
+      'O código não correspondeu. Foi mal escrito ou alguém tentou intercetar a transferência. Nada foi enviado. Comece de novo com um código novo.';
+
+  @override
+  String get errorPeerLeft =>
+      'O outro lado saiu antes de a transferência terminar.';
+
+  @override
+  String get errorDeclined => 'O destinatário recusou os ficheiros.';
+
+  @override
+  String get errorCancelled => 'O outro lado parou a transferência.';
+
+  @override
+  String get errorStopped => 'Parada neste dispositivo.';
+
+  @override
+  String get errorInvalidCode => 'Esse código não é válido.';
+
+  @override
+  String get errorServer =>
+      'Não foi possível contactar o servidor do TotalDrop. Verifique a sua ligação à Internet.';
+
+  @override
+  String get errorCodeNotInUse =>
+      'Esse código não está em uso: foi mal escrito, expirou ou já foi usado. Peça um novo a quem está a enviar.';
+
+  @override
+  String get errorCodeExpired =>
+      'O código expirou antes de alguém o usar. Envie de novo para obter um código novo.';
+
+  @override
+  String get errorBadServer =>
+      'O endereço do servidor não é válido. Tem de começar por wss://.';
+
+  @override
+  String get errorConnect =>
+      'Não foi possível ligar ao outro dispositivo. Verifique se ambos os dispositivos estão online e tente novamente.';
+
+  @override
+  String get errorInvalidOffer =>
+      'A oferta violou uma regra de segurança e por isso foi recusada.';
+
+  @override
+  String get errorStorage => 'Não foi possível ler ou guardar um ficheiro.';
+
+  @override
+  String get errorOther => 'Ocorreu um problema.';
+
+  @override
+  String get causeTimedOut =>
+      'A ligação deixou de responder. Um dos dispositivos pode ter perdido a rede ou entrado em suspensão.';
+
+  @override
+  String get causeConnectionLost =>
+      'A ligação ao outro dispositivo foi interrompida.';
+
+  @override
+  String get causeNoRoute =>
+      'Não foi possível chegar ao outro dispositivo, nem diretamente nem pelo servidor de retransmissão.';
+
+  @override
+  String get causeRelay =>
+      'Não foi possível chegar ao servidor de retransmissão ou este não está configurado, ou os dois dispositivos não usam o mesmo.';
+
+  @override
+  String get causeProtocol =>
+      'O outro dispositivo enviou algo que esta versão não compreende. Atualizar o TotalDrop nos dois dispositivos pode ajudar.';
+
+  @override
+  String get causeDiskFull =>
+      'Não há espaço livre suficiente neste dispositivo.';
+
+  @override
+  String get causeNoPermission =>
+      'O TotalDrop não tem permissão para ler ou escrever um ficheiro ou pasta de que precisa.';
+
+  @override
+  String get causeNotFound =>
+      'Não foi encontrado um ficheiro ou pasta. Pode ter sido movido ou eliminado.';
+
+  @override
+  String get causeReadOnly =>
+      'A pasta está num disco onde não é possível escrever.';
+
+  @override
+  String get causeFileChanged =>
+      'Um ficheiro mudou enquanto era enviado. Envie-o de novo depois de o guardar.';
+
+  @override
+  String get technicalDetail =>
+      'Mensagem técnica em inglês, para incluir quando comunicar um problema:';
+
+  @override
+  String get settingsServer => 'Servidor de encontro';
+
+  @override
+  String get settingsServerHelp =>
+      'Ajuda dois dispositivos com o mesmo código a encontrarem-se. Nunca vê os seus ficheiros nem as suas chaves.';
+
+  @override
+  String get settingsServerReset => 'Usar o predefinido';
+
+  @override
+  String get settingsServerInvalid => 'Tem de começar por wss://';
+
+  @override
+  String get settingsSave => 'Guardar';
+
+  @override
+  String get settingsAbout => 'Acerca de';
+
+  @override
+  String get settingsAboutBody =>
+      'O TotalDrop é gratuito e de código aberto, financiado por donativos. Licença GPL-3.0-or-later.';
+
+  @override
+  String get settingsPrivacy => 'Privacidade';
+
+  @override
+  String get settingsPrivacyBody =>
+      'O servidor de encontro, o servidor de retransmissão e o servidor STUN da Cloudflare veem o seu endereço IP, tal como o outro dispositivo quando há uma ligação direta (a não ser que o modo de privacidade esteja ativado). Nenhum deles vê nomes de ficheiros, conteúdos ou chaves, e os nossos servidores não guardam registos. Os ficheiros vão diretamente entre os dispositivos sempre que possível; caso contrário, passam pelo servidor de retransmissão. Em ambos os casos, têm encriptação ponto a ponto.';
+
+  @override
+  String get privacyMode => 'Ocultar o meu endereço do outro dispositivo';
+
+  @override
+  String get privacyModeHint =>
+      'Modo de privacidade: tudo passa pelo servidor de retransmissão, pelo que o outro dispositivo nunca fica a saber o seu endereço IP. É mais lento, e o outro dispositivo tem de usar o mesmo servidor de retransmissão (o predefinido usa).';
+
+  @override
+  String get privacyModeConfirmTitle => 'Ativar o modo de privacidade?';
+
+  @override
+  String get privacyModeConfirmBody =>
+      'As transferências serão mais lentas, porque nada passa diretamente entre os dispositivos. O servidor de encontro e o servidor de retransmissão continuam a ver o seu endereço IP; nunca veem os seus ficheiros nem as suas chaves.';
+
+  @override
+  String get privacyModeTurnOn => 'Ativar';
+
+  @override
+  String settingsVersion(String version) {
+    return 'Versão $version';
+  }
+
+  @override
+  String sizeBytes(String value) {
+    return '$value B';
+  }
+
+  @override
+  String sizeKB(String value) {
+    return '$value kB';
+  }
+
+  @override
+  String sizeMB(String value) {
+    return '$value MB';
+  }
+
+  @override
+  String sizeGB(String value) {
+    return '$value GB';
+  }
+
+  @override
+  String sizeTB(String value) {
+    return '$value TB';
+  }
+
+  @override
+  String sizePB(String value) {
+    return '$value PB';
+  }
+
+  @override
+  String get draftTranslation =>
+      'Esta tradução está em revisão. Ajude a melhorá-la no GitHub.';
+
+  @override
+  String get settingsWordsEnglish =>
+      'Os códigos e as palavras de verificação estão sempre em inglês, para que dois dispositivos em idiomas diferentes mostrem as mesmas palavras.';
+
+  @override
+  String get sendDropHere => 'Largue os ficheiros aqui';
+
+  @override
+  String get sendDropHint => 'Também pode arrastar ficheiros para esta janela.';
+
+  @override
+  String get keepAwakeReason =>
+      'O TotalDrop está a enviar ou a receber ficheiros';
+
+  @override
+  String get sendQrHint =>
+      'Ou leia este código com a câmara do outro dispositivo.';
+
+  @override
+  String get sendWaitingAccept =>
+      'Confira as palavras e aguarde que o destinatário aceite.';
+
+  @override
+  String get receiveFromImage => 'Ler QR de uma imagem';
+
+  @override
+  String get receiveQrNotFound =>
+      'Não há nenhum código do TotalDrop nessa imagem.';
+
+  @override
+  String get pickTitle => 'Escolha os ficheiros a enviar';
+
+  @override
+  String get pickImageTitle => 'Escolha uma imagem com um código QR';
+
+  @override
+  String get openFolder => 'Abrir pasta';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get codeSuggestions => 'Sugestões';
+
+  @override
+  String progressPercent(int percent) {
+    final intl.NumberFormat percentNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String percentString = percentNumberFormat.format(percent);
+
+    return '$percentString%';
+  }
+
+  @override
+  String get editUndo => 'Anular';
+
+  @override
+  String get editRedo => 'Refazer';
+
+  @override
+  String get editCut => 'Cortar';
+
+  @override
+  String get editCopy => 'Copiar';
+
+  @override
+  String get editPaste => 'Colar';
+
+  @override
+  String get editDelete => 'Eliminar';
+
+  @override
+  String get editSelectAll => 'Selecionar tudo';
+
+  @override
+  String get transferNoticeChannel => 'Transferências';
+
+  @override
+  String get transferNoticeSending => 'A enviar com o TotalDrop';
+
+  @override
+  String get transferNoticeReceiving => 'A receber com o TotalDrop';
+
+  @override
+  String get transferNoticeBody => 'Continua enquanto utiliza outras apps.';
+
+  @override
+  String get shareBusy =>
+      'Ainda está a decorrer uma transferência. Aguarde que termine ou pare-a e partilhe novamente.';
+
+  @override
+  String get linkBusy =>
+      'Termine ou pare o que está no ecrã e depois abra o link novamente.';
+
+  @override
+  String shareSkipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count itens partilhados não puderam ser lidos e foram deixados de fora.',
+      many:
+          '$count de itens partilhados não puderam ser lidos e foram deixados de fora.',
+      one: 'Um item partilhado não pôde ser lido e foi deixado de fora.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get desktopGenericName => 'Transferência de ficheiros';
+
+  @override
+  String get desktopComment =>
+      'Envie ficheiros diretamente para outro dispositivo, com encriptação ponto a ponto';
+
+  @override
+  String get desktopKeywords =>
+      'enviar;receber;partilhar;transferir;ficheiros;';
+
+  @override
+  String get desktopSendWith => 'Enviar com o TotalDrop';
+
+  @override
+  String get metainfoSummary =>
+      'Envie ficheiros diretamente para outro dispositivo';
+
+  @override
+  String get metainfoAbout =>
+      'O TotalDrop envia ficheiros e pastas de um dispositivo para outro, com encriptação de ponta a ponta. Escolha os ficheiros, partilhe um código curto ou um código QR e o outro dispositivo recebe-os. Sem conta, sem e-mail, sem número de telefone.';
+
+  @override
+  String get metainfoVerified =>
+      'Cada ficheiro é verificado à chegada; os ficheiros danificados são descartados';
+
+  @override
+  String get metainfoWords =>
+      'Quatro palavras de verificação mostram que ninguém está no meio';
+
+  @override
+  String get metainfoTheme =>
+      'Segue o tema do seu ambiente de trabalho: Plasma, Hyprland, Omarchy, GNOME';
+
+  @override
+  String get metainfoOnePackage =>
+      'Use um pacote Linux de cada vez. O Flatpak e o pacote .pkg, .deb ou .rpm partilham um nome, por isso, enquanto um está aberto, iniciar o outro traz a janela aberta para a frente em vez de abrir uma segunda.';
+
+  @override
+  String get otherPackageFlatpak =>
+      'O TotalDrop já está aberto a partir do Flatpak, por isso essa janela foi trazida para a frente. Use um pacote de cada vez: feche essa janela para abrir este.';
+
+  @override
+  String get otherPackageSystem =>
+      'O TotalDrop já está aberto a partir do pacote .pkg, .deb ou .rpm, por isso essa janela foi trazida para a frente. Use um pacote de cada vez: feche essa janela para abrir este.';
+
+  @override
+  String get sendText => 'Enviar texto';
+
+  @override
+  String get sendTextHint => 'Escreva ou cole o texto que pretende enviar';
+
+  @override
+  String sendTextTooLong(String size) {
+    return 'Um texto pode ter no máximo $size. Envie um texto maior como ficheiro.';
+  }
+
+  @override
+  String get sendTextDone => 'O texto chegou íntegro.';
+
+  @override
+  String get sendClipboard => 'Enviar área de transferência';
+
+  @override
+  String get sendClipboardEmpty => 'A área de transferência não tem texto.';
+
+  @override
+  String get receiveOfferText => 'Texto recebido';
+
+  @override
+  String get receiveOfferTextNote => 'O texto é mostrado aqui, não é guardado.';
+
+  @override
+  String get receiveTextDone => 'Texto recebido e verificado';
+
+  @override
+  String get receiveTextDeclined => 'Recusou o texto.';
+
+  @override
+  String get receiveTextHidden =>
+      'O texto contém caracteres ocultos, mostrados como U+…. Ao copiar, obtém o texto exatamente como chegou.';
+
+  @override
+  String get sendTextHidden =>
+      'O texto contém caracteres ocultos, como marcas de direção. São enviados juntamente com ele.';
+
+  @override
+  String get sendClipboardKept =>
+      'O texto já escrito foi mantido; a área de transferência não foi utilizada.';
+
+  @override
+  String get sendTextShortened =>
+      'Só é mostrado o início do texto; é enviado na íntegra.';
+
+  @override
+  String get receiveTextShortened =>
+      'Só é mostrado o início do texto. Copiar texto copia-o na íntegra.';
+
+  @override
+  String get copyText => 'Copiar texto';
+
+  @override
+  String get textCopied => 'Texto copiado';
+
+  @override
+  String get errorTextDamaged =>
+      'O texto não chegou íntegro, por isso não é mostrado.';
+
+  @override
+  String get setupBackgroundTitle =>
+      'Manter as transferências em segundo plano';
+
+  @override
+  String get setupBackgroundBody =>
+      'Para que uma transferência continue quando muda de app ou bloqueia o ecrã, permita que o TotalDrop funcione sem restrições de bateria. O TotalDrop só trabalha em segundo plano enquanto decorre uma transferência que iniciou.';
+
+  @override
+  String get setupBackgroundAllowed =>
+      'A otimização da bateria do Android está desativada para o TotalDrop.';
+
+  @override
+  String get setupBackgroundRestricted =>
+      'A otimização da bateria do Android está ativada para o TotalDrop: uma transferência pode parar quando muda de app.';
+
+  @override
+  String get setupBackgroundBattery => 'Abrir definições da bateria';
+
+  @override
+  String get setupBackgroundBatteryHint =>
+      'Na página de informações da aplicação TotalDrop, abra Bateria e permita a utilização sem restrições. Os nomes destas definições variam de telemóvel para telemóvel.';
+
+  @override
+  String setupBackgroundMaker(String maker) {
+    return 'Os telemóveis $maker têm uma poupança de bateria própria';
+  }
+
+  @override
+  String get setupBackgroundMakerBody =>
+      'Abra também a poupança de bateria do TotalDrop e escolha \"Sem restrições\". Se o telemóvel tiver Arranque automático, ative-o para o TotalDrop.';
+
+  @override
+  String get setupBackgroundMakerOpen =>
+      'Abrir a poupança de bateria do TotalDrop';
+
+  @override
+  String get setupBackgroundAutostart => 'Abrir Arranque automático';
+
+  @override
+  String get setupBackgroundSkip => 'Agora não';
+
+  @override
+  String get settingsBackground => 'Transferências em segundo plano';
+
+  @override
+  String get settingsBackgroundOpen => 'Definições da bateria';
+}

@@ -1,0 +1,1379 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_ar.dart';
+import 'app_localizations_bn.dart';
+import 'app_localizations_cs.dart';
+import 'app_localizations_da.dart';
+import 'app_localizations_de.dart';
+import 'app_localizations_el.dart';
+import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fa.dart';
+import 'app_localizations_fi.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_he.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_hu.dart';
+import 'app_localizations_id.dart';
+import 'app_localizations_it.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_ko.dart';
+import 'app_localizations_ms.dart';
+import 'app_localizations_nb.dart';
+import 'app_localizations_nl.dart';
+import 'app_localizations_pl.dart';
+import 'app_localizations_pt.dart';
+import 'app_localizations_ro.dart';
+import 'app_localizations_ru.dart';
+import 'app_localizations_sv.dart';
+import 'app_localizations_sw.dart';
+import 'app_localizations_th.dart';
+import 'app_localizations_tr.dart';
+import 'app_localizations_uk.dart';
+import 'app_localizations_ur.dart';
+import 'app_localizations_vi.dart';
+import 'app_localizations_zh.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'l10n/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('bn'),
+    Locale('cs'),
+    Locale('da'),
+    Locale('de'),
+    Locale('el'),
+    Locale('en'),
+    Locale('es'),
+    Locale('fa'),
+    Locale('fi'),
+    Locale('fr'),
+    Locale('he'),
+    Locale('hi'),
+    Locale('hu'),
+    Locale('id'),
+    Locale('it'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('ms'),
+    Locale('nb'),
+    Locale('nl'),
+    Locale('pl'),
+    Locale('pt'),
+    Locale('pt', 'BR'),
+    Locale('pt', 'PT'),
+    Locale('ro'),
+    Locale('ru'),
+    Locale('sv'),
+    Locale('sw'),
+    Locale('th'),
+    Locale('tr'),
+    Locale('uk'),
+    Locale('ur'),
+    Locale('vi'),
+    Locale('zh'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
+  ];
+
+  /// Short slogan under the app name on the home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Any file, to anyone, anywhere.'**
+  String get appTagline;
+
+  /// No description provided for @homeSendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get homeSendTitle;
+
+  /// No description provided for @homeSendBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick files and share a short code'**
+  String get homeSendBody;
+
+  /// No description provided for @homeReceiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive'**
+  String get homeReceiveTitle;
+
+  /// No description provided for @homeReceiveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a code and save the files'**
+  String get homeReceiveBody;
+
+  /// No description provided for @homeFooter.
+  ///
+  /// In en, this message translates to:
+  /// **'End-to-end encrypted. No account, no email, no phone number.'**
+  String get homeFooter;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @sendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send files'**
+  String get sendTitle;
+
+  /// No description provided for @sendAddFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Add files'**
+  String get sendAddFiles;
+
+  /// No description provided for @sendEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing selected yet'**
+  String get sendEmpty;
+
+  /// No description provided for @sendEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the files you want to send. The receiver gets exactly these, nothing else.'**
+  String get sendEmptyHint;
+
+  /// No description provided for @sendStrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger code'**
+  String get sendStrongCode;
+
+  /// No description provided for @sendStrongCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Three words instead of two: much harder to guess'**
+  String get sendStrongCodeHint;
+
+  /// No description provided for @sendCreateCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Create code'**
+  String get sendCreateCode;
+
+  /// No description provided for @sendCounting.
+  ///
+  /// In en, this message translates to:
+  /// **'Counting…'**
+  String get sendCounting;
+
+  /// No description provided for @sendRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get sendRemove;
+
+  /// No description provided for @sendPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your files…'**
+  String get sendPreparing;
+
+  /// Shown on the send screen when the system file picker could not hand over the chosen files (a path it cannot read, too little memory, or no space left for its copy).
+  ///
+  /// In en, this message translates to:
+  /// **'The files could not be added. Try again. If it happens again, check that this device has enough free space, or choose the files from another place.'**
+  String get sendAddFailed;
+
+  /// No description provided for @sendYourCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Your code'**
+  String get sendYourCode;
+
+  /// No description provided for @sendCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On the other device, open TotalDrop, tap Receive and enter this code.'**
+  String get sendCodeHint;
+
+  /// No description provided for @sendWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the receiver…'**
+  String get sendWaiting;
+
+  /// No description provided for @sendCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get sendCopy;
+
+  /// No description provided for @sendCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Code copied'**
+  String get sendCopied;
+
+  /// No description provided for @sendShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get sendShare;
+
+  /// No description provided for @sendShareText.
+  ///
+  /// In en, this message translates to:
+  /// **'Get my files with TotalDrop. Code: {code}'**
+  String sendShareText(String code);
+
+  /// No description provided for @sendSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending'**
+  String get sendSending;
+
+  /// No description provided for @sendDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent and verified'**
+  String get sendDone;
+
+  /// No description provided for @sendDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{The file arrived intact.} other{All {count} files arrived intact.}}'**
+  String sendDoneBody(int count);
+
+  /// No description provided for @sendSomeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{One file did not arrive intact and was discarded.} other{{count} files did not arrive intact and were discarded.}}'**
+  String sendSomeFailed(int count);
+
+  /// No description provided for @itemsAndSize.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} item} other{{count} items}} · {size}'**
+  String itemsAndSize(int count, String size);
+
+  /// No description provided for @receiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive files'**
+  String get receiveTitle;
+
+  /// No description provided for @receiveCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get receiveCodeLabel;
+
+  /// No description provided for @receiveCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'7-harbor-rocket'**
+  String get receiveCodeHint;
+
+  /// No description provided for @receiveCodeHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask the sender for their code.'**
+  String get receiveCodeHelp;
+
+  /// No description provided for @receiveCodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That does not look like a code. It starts with a number, then two or three words.'**
+  String get receiveCodeInvalid;
+
+  /// No description provided for @receivePaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste'**
+  String get receivePaste;
+
+  /// No description provided for @receiveConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get receiveConnect;
+
+  /// No description provided for @receiveConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting securely…'**
+  String get receiveConnecting;
+
+  /// No description provided for @receiveOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming files'**
+  String get receiveOffer;
+
+  /// No description provided for @receiveOfferSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{files, plural, one{{files} file} other{{files} files}} · {size}'**
+  String receiveOfferSummary(int files, String size);
+
+  /// No description provided for @receiveAndMore.
+  ///
+  /// In en, this message translates to:
+  /// **'and {count} more'**
+  String receiveAndMore(int count);
+
+  /// No description provided for @receiveSaveTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to {folder}'**
+  String receiveSaveTo(String folder);
+
+  /// No description provided for @receiveAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept'**
+  String get receiveAccept;
+
+  /// No description provided for @receiveDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get receiveDecline;
+
+  /// No description provided for @receiveDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'You declined the files.'**
+  String get receiveDeclined;
+
+  /// No description provided for @receiveReceiving.
+  ///
+  /// In en, this message translates to:
+  /// **'Receiving'**
+  String get receiveReceiving;
+
+  /// No description provided for @receiveDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Received and verified'**
+  String get receiveDone;
+
+  /// No description provided for @verificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification words'**
+  String get verificationTitle;
+
+  /// No description provided for @verificationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The other person sees the same four words. If they differ, stop.'**
+  String get verificationHint;
+
+  /// No description provided for @sameNetworkNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Works across the internet. When the devices cannot reach each other directly, the encrypted transfer goes through the relay, which cannot read it.'**
+  String get sameNetworkNote;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @cancelTransferTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop this transfer?'**
+  String get cancelTransferTitle;
+
+  /// No description provided for @cancelTransferBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The other side will be told the transfer stopped.'**
+  String get cancelTransferBody;
+
+  /// No description provided for @keepGoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get keepGoing;
+
+  /// No description provided for @stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// No description provided for @moreInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get moreInfo;
+
+  /// No description provided for @errorWrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'The code did not match. It was mistyped, or someone tried to intercept the transfer. Nothing was sent. Start again with a new code.'**
+  String get errorWrongCode;
+
+  /// No description provided for @errorPeerLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'The other side left before the transfer finished.'**
+  String get errorPeerLeft;
+
+  /// No description provided for @errorDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'The receiver declined the files.'**
+  String get errorDeclined;
+
+  /// No description provided for @errorCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'The other side stopped the transfer.'**
+  String get errorCancelled;
+
+  /// No description provided for @errorStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped on this device.'**
+  String get errorStopped;
+
+  /// No description provided for @errorInvalidCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not valid.'**
+  String get errorInvalidCode;
+
+  /// No description provided for @errorServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach the TotalDrop server. Check your internet connection.'**
+  String get errorServer;
+
+  /// The server says no sender is using this code's number. Same text as cliErrCodeNotInUse
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not in use: it was mistyped, has expired or was already used. Ask the sender for a new one.'**
+  String get errorCodeNotInUse;
+
+  /// Shown to the sender: nobody came for the code before the server let it expire (15 minutes). Same text as cliErrCodeExpired
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody used the code before it expired. Send again to get a new code.'**
+  String get errorCodeExpired;
+
+  /// The rendezvous server address in the settings is not valid. Same text as cliErrBadServer
+  ///
+  /// In en, this message translates to:
+  /// **'The server address is not valid. It must start with wss://.'**
+  String get errorBadServer;
+
+  /// No description provided for @errorConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect to the other device. Check that both devices are online and try again.'**
+  String get errorConnect;
+
+  /// No description provided for @errorInvalidOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'The offer broke a safety rule, so it was refused.'**
+  String get errorInvalidOffer;
+
+  /// No description provided for @errorStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'A file could not be read or saved.'**
+  String get errorStorage;
+
+  /// No description provided for @errorOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong.'**
+  String get errorOther;
+
+  /// Under Details of a failed transfer: why it failed. The connection went silent (QUIC idle timeout), or the sender stopped sending.
+  ///
+  /// In en, this message translates to:
+  /// **'The connection stopped responding. One of the devices may have lost its network or gone to sleep.'**
+  String get causeTimedOut;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'The connection to the other device was cut.'**
+  String get causeConnectionLost;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'No way of reaching the other device worked, directly or through the relay.'**
+  String get causeNoRoute;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'The relay server could not be reached or is not set up, or the two devices do not use the same one.'**
+  String get causeRelay;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'The other device sent something this version does not understand. Updating TotalDrop on both devices may help.'**
+  String get causeProtocol;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'There is not enough free space on this device.'**
+  String get causeDiskFull;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop is not allowed to read or write a file or folder it needs.'**
+  String get causeNoPermission;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'A file or folder could not be found. It may have been moved or deleted.'**
+  String get causeNotFound;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'The folder is on a disk that cannot be written to.'**
+  String get causeReadOnly;
+
+  /// Under Details of a failed transfer: why it failed, in plain words
+  ///
+  /// In en, this message translates to:
+  /// **'A file changed while it was being sent. Send it again once it is saved.'**
+  String get causeFileChanged;
+
+  /// Under Details, above the error's technical text, which stays in English so it can be searched and reported
+  ///
+  /// In en, this message translates to:
+  /// **'Technical message in English, to include when you report a problem:'**
+  String get technicalDetail;
+
+  /// No description provided for @settingsServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Rendezvous server'**
+  String get settingsServer;
+
+  /// No description provided for @settingsServerHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Helps two devices with the same code find each other. It never sees your files or keys.'**
+  String get settingsServerHelp;
+
+  /// No description provided for @settingsServerReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the default'**
+  String get settingsServerReset;
+
+  /// No description provided for @settingsServerInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Must start with wss://'**
+  String get settingsServerInvalid;
+
+  /// No description provided for @settingsSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get settingsSave;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// No description provided for @settingsAboutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop is free and open source, funded by donations. Licensed GPL-3.0-or-later.'**
+  String get settingsAboutBody;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get settingsPrivacy;
+
+  /// No description provided for @settingsPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The rendezvous server, the relay and Cloudflare\'s STUN server see your IP address, and so does the other device when you connect directly (unless privacy mode is on). None of them sees file names, contents or keys, and our servers keep no logs. Files go directly between the devices when they can, otherwise through the relay; they are encrypted end to end either way.'**
+  String get settingsPrivacyBody;
+
+  /// No description provided for @privacyMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide my address from the other device'**
+  String get privacyMode;
+
+  /// No description provided for @privacyModeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy mode: everything goes through the relay, so the other device never learns your IP address. Slower, and the other device must use the same relay (the default one does).'**
+  String get privacyModeHint;
+
+  /// No description provided for @privacyModeConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on privacy mode?'**
+  String get privacyModeConfirmTitle;
+
+  /// No description provided for @privacyModeConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers will be slower, because nothing goes directly between the devices. The rendezvous server and the relay still see your IP address; they never see your files or keys.'**
+  String get privacyModeConfirmBody;
+
+  /// No description provided for @privacyModeTurnOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get privacyModeTurnOn;
+
+  /// No description provided for @settingsVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String settingsVersion(String version);
+
+  /// A size in bytes. value is already formatted for the region
+  ///
+  /// In en, this message translates to:
+  /// **'{value} B'**
+  String sizeBytes(String value);
+
+  /// Kilobytes (1000 bytes)
+  ///
+  /// In en, this message translates to:
+  /// **'{value} kB'**
+  String sizeKB(String value);
+
+  /// Megabytes
+  ///
+  /// In en, this message translates to:
+  /// **'{value} MB'**
+  String sizeMB(String value);
+
+  /// Gigabytes
+  ///
+  /// In en, this message translates to:
+  /// **'{value} GB'**
+  String sizeGB(String value);
+
+  /// Terabytes
+  ///
+  /// In en, this message translates to:
+  /// **'{value} TB'**
+  String sizeTB(String value);
+
+  /// Petabytes
+  ///
+  /// In en, this message translates to:
+  /// **'{value} PB'**
+  String sizePB(String value);
+
+  /// Shown in Settings when some of the text in this language is an unreviewed draft
+  ///
+  /// In en, this message translates to:
+  /// **'This translation is being reviewed. Help improve it on GitHub.'**
+  String get draftTranslation;
+
+  /// Shown in Settings under About. Explains why the transfer code and the verification words stay in English: they come from one English word list so that both devices show the same ones
+  ///
+  /// In en, this message translates to:
+  /// **'Codes and verification words are in English in every language, so two devices set to different languages show the same words.'**
+  String get settingsWordsEnglish;
+
+  /// No description provided for @sendDropHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Drop files here'**
+  String get sendDropHere;
+
+  /// No description provided for @sendDropHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You can also drag files onto this window.'**
+  String get sendDropHint;
+
+  /// Linux: why the computer is kept from sleeping while a transfer runs; the desktop may show it in its power settings or battery menu
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop is sending or receiving files'**
+  String get keepAwakeReason;
+
+  /// No description provided for @sendQrHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Or scan this code with the other device\'s camera.'**
+  String get sendQrHint;
+
+  /// No description provided for @sendWaitingAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the words, then wait for the receiver to accept.'**
+  String get sendWaitingAccept;
+
+  /// No description provided for @receiveFromImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Read QR from image'**
+  String get receiveFromImage;
+
+  /// No description provided for @receiveQrNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no TotalDrop code in that image.'**
+  String get receiveQrNotFound;
+
+  /// No description provided for @pickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose files to send'**
+  String get pickTitle;
+
+  /// No description provided for @pickImageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an image with a QR code'**
+  String get pickImageTitle;
+
+  /// No description provided for @openFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Open folder'**
+  String get openFolder;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @codeSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get codeSuggestions;
+
+  /// Transfer progress; use your language's percent style
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String progressPercent(int percent);
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get editUndo;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Redo'**
+  String get editRedo;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Cut'**
+  String get editCut;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get editCopy;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Paste'**
+  String get editPaste;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get editDelete;
+
+  /// Linux: in the right-click menu of text fields, which Qt draws; the system's usual word for the command
+  ///
+  /// In en, this message translates to:
+  /// **'Select All'**
+  String get editSelectAll;
+
+  /// Android notification channel name for running transfers (shown in system settings)
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers'**
+  String get transferNoticeChannel;
+
+  /// Title of the ongoing notification while a send runs in the background
+  ///
+  /// In en, this message translates to:
+  /// **'Sending with TotalDrop'**
+  String get transferNoticeSending;
+
+  /// Title of the ongoing notification while a receive runs in the background
+  ///
+  /// In en, this message translates to:
+  /// **'Receiving with TotalDrop'**
+  String get transferNoticeReceiving;
+
+  /// Text of the ongoing transfer notification: the transfer continues while the person uses other apps
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps going while you use other apps.'**
+  String get transferNoticeBody;
+
+  /// Android: shown when files are shared to TotalDrop while a send or receive is still running; the shared files are not added
+  ///
+  /// In en, this message translates to:
+  /// **'A transfer is still running. Wait for it to finish or stop it, then share again.'**
+  String get shareBusy;
+
+  /// Android: shown when a TotalDrop link (totaldrop://r/… or https://totaldrop.app/r#…) opens the app while Receive cannot take a new code: a send or receive is running, an offer waits for an answer, or a received text is shown. The screen it refers to is shown; the link's code is not filled in
+  ///
+  /// In en, this message translates to:
+  /// **'Finish or stop what is on the screen, then open the link again.'**
+  String get linkBusy;
+
+  /// Android: shown when some of the items another app shared to TotalDrop could not be read (no read permission, or the app's own files) and were left out; the rest were added
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{One shared item could not be read and was left out.} other{{count} shared items could not be read and were left out.}}'**
+  String shareSkipped(int count);
+
+  /// Linux desktop entry: what kind of app TotalDrop is, shown under its name in app menus and launchers
+  ///
+  /// In en, this message translates to:
+  /// **'File transfer'**
+  String get desktopGenericName;
+
+  /// Linux desktop entry: one-line description shown as a tooltip in app menus
+  ///
+  /// In en, this message translates to:
+  /// **'Send files straight to another device, end-to-end encrypted'**
+  String get desktopComment;
+
+  /// Linux desktop entry: search words for app launchers, separated by semicolons and ending with one. Words people type to find a file-sending app; no spaces around the semicolons
+  ///
+  /// In en, this message translates to:
+  /// **'send;receive;share;transfer;files;'**
+  String get desktopKeywords;
+
+  /// Linux file managers (Dolphin, Files, Nemo): right-click menu item that sends the selected files and folders with TotalDrop. Also Android: the item in the menu of text selected in any app, which sends that text
+  ///
+  /// In en, this message translates to:
+  /// **'Send with TotalDrop'**
+  String get desktopSendWith;
+
+  /// Linux software centres (Discover, GNOME Software, Flathub): one-line summary under the app's name. No full stop at the end
+  ///
+  /// In en, this message translates to:
+  /// **'Send files straight to another device'**
+  String get metainfoSummary;
+
+  /// Linux software centres: the paragraph that introduces TotalDrop on its page
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop sends files and folders from one device to another, end-to-end encrypted. Pick the files, share a short code or a QR code, and the other device receives them. No account, no email, no phone number.'**
+  String get metainfoAbout;
+
+  /// Linux software centres: feature list item about every received file being checked
+  ///
+  /// In en, this message translates to:
+  /// **'Every file is verified on arrival; damaged files are discarded'**
+  String get metainfoVerified;
+
+  /// Linux software centres: feature list item about the four verification words that show no one is intercepting the transfer
+  ///
+  /// In en, this message translates to:
+  /// **'Four verification words show that nobody is in the middle'**
+  String get metainfoWords;
+
+  /// Linux software centres: feature list item; keep the desktop names Plasma, Hyprland, Omarchy and GNOME as they are
+  ///
+  /// In en, this message translates to:
+  /// **'Follows your desktop\'s theme: Plasma, Hyprland, Omarchy, GNOME'**
+  String get metainfoTheme;
+
+  /// Linux software centres: last paragraph of the description; the Flatpak and the distribution package (.pkg, .deb, .rpm) cannot run at the same time (#351). Keep .pkg, .deb, .rpm and Flatpak as they are
+  ///
+  /// In en, this message translates to:
+  /// **'Use one Linux package at a time. The Flatpak and the .pkg, .deb or .rpm package share one name, so while one of them is open, starting the other brings the open window forward instead of opening a second one.'**
+  String get metainfoOnePackage;
+
+  /// Linux desktop notification when TotalDrop is started from the distribution package while the Flatpak window is already open; that window comes forward instead (#351)
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop is already open from the Flatpak, so that window was brought forward. Use one package at a time: quit that window to open this one.'**
+  String get otherPackageFlatpak;
+
+  /// Linux desktop notification when TotalDrop is started from the Flatpak while the window of the .pkg, .deb or .rpm package is already open; that window comes forward instead (#351)
+  ///
+  /// In en, this message translates to:
+  /// **'TotalDrop is already open from the .pkg, .deb or .rpm package, so that window was brought forward. Use one package at a time: quit that window to open this one.'**
+  String get otherPackageSystem;
+
+  /// Send screen: button and screen title for sending a piece of text instead of files
+  ///
+  /// In en, this message translates to:
+  /// **'Send text'**
+  String get sendText;
+
+  /// Send screen: placeholder in the box where the person types or pastes the text to send
+  ///
+  /// In en, this message translates to:
+  /// **'Type or paste the text to send'**
+  String get sendTextHint;
+
+  /// Send screen: the text is over the limit; {size} is the limit, such as 1 MB
+  ///
+  /// In en, this message translates to:
+  /// **'A text can be at most {size}. Send a longer one as a file.'**
+  String sendTextTooLong(String size);
+
+  /// Send result: the text reached the receiver and its check passed
+  ///
+  /// In en, this message translates to:
+  /// **'The text arrived intact.'**
+  String get sendTextDone;
+
+  /// Linux desktop entry action and Android shortcut: opens Send with the text on the clipboard filled in
+  ///
+  /// In en, this message translates to:
+  /// **'Send clipboard'**
+  String get sendClipboard;
+
+  /// Send screen: shown when Send clipboard finds no text on the clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'The clipboard holds no text.'**
+  String get sendClipboardEmpty;
+
+  /// Receive screen: title when the other side wants to send a text, not files
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming text'**
+  String get receiveOfferText;
+
+  /// Receive screen: under an incoming text, in place of the folder files are saved to
+  ///
+  /// In en, this message translates to:
+  /// **'The text is shown here, not saved.'**
+  String get receiveOfferTextNote;
+
+  /// Receive result: title when a text arrived and its check passed; the text is shown below it
+  ///
+  /// In en, this message translates to:
+  /// **'Text received and verified'**
+  String get receiveTextDone;
+
+  /// Receive result: the person declined an incoming text
+  ///
+  /// In en, this message translates to:
+  /// **'You declined the text.'**
+  String get receiveTextDeclined;
+
+  /// Receive result: the text holds invisible control or direction characters, shown in the text by their code, as <U+202E>; keep U+… as it is
+  ///
+  /// In en, this message translates to:
+  /// **'The text holds hidden characters, shown as U+…. Copying gives the text exactly as it came.'**
+  String get receiveTextHidden;
+
+  /// Send screen: the text to send holds invisible control or direction characters; they are sent as they are
+  ///
+  /// In en, this message translates to:
+  /// **'The text holds hidden characters, such as direction marks. They are sent with it.'**
+  String get sendTextHidden;
+
+  /// Send screen: Send clipboard was chosen while the text box already held typed text, so the clipboard was not pasted
+  ///
+  /// In en, this message translates to:
+  /// **'The text already typed is kept; the clipboard was not used.'**
+  String get sendClipboardKept;
+
+  /// Send screen: a very long pasted text is shown only in part; the whole text is still sent
+  ///
+  /// In en, this message translates to:
+  /// **'Only the beginning of the text is shown; all of it is sent.'**
+  String get sendTextShortened;
+
+  /// Receive result: a very long text is shown only in part; the Copy text button copies the whole text
+  ///
+  /// In en, this message translates to:
+  /// **'Only the beginning of the text is shown. Copy text copies all of it.'**
+  String get receiveTextShortened;
+
+  /// Receive result: button that copies the received text to the clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'Copy text'**
+  String get copyText;
+
+  /// Tooltip after the received text was copied
+  ///
+  /// In en, this message translates to:
+  /// **'Text copied'**
+  String get textCopied;
+
+  /// Receive result: the text failed its integrity check or is not valid text, so it is not shown
+  ///
+  /// In en, this message translates to:
+  /// **'The text did not arrive intact, so it is not shown.'**
+  String get errorTextDamaged;
+
+  /// First-run and Settings page about background transfers (#338): heading
+  ///
+  /// In en, this message translates to:
+  /// **'Keep transfers going in the background'**
+  String get setupBackgroundTitle;
+
+  /// The same page: why TotalDrop asks to run without battery restrictions
+  ///
+  /// In en, this message translates to:
+  /// **'So that a transfer keeps going when you switch apps or lock the screen, let TotalDrop run without battery restrictions. TotalDrop works in the background only while a transfer you started is running.'**
+  String get setupBackgroundBody;
+
+  /// The same page: status when Android's battery optimisation is already off for TotalDrop
+  ///
+  /// In en, this message translates to:
+  /// **'Android\'s battery optimisation is off for TotalDrop.'**
+  String get setupBackgroundAllowed;
+
+  /// The same page: status when Android's battery optimisation is still on for TotalDrop
+  ///
+  /// In en, this message translates to:
+  /// **'Android\'s battery optimisation is on for TotalDrop: a transfer may stop when you switch apps.'**
+  String get setupBackgroundRestricted;
+
+  /// The same page: button that opens TotalDrop's app info, where its battery use is set
+  ///
+  /// In en, this message translates to:
+  /// **'Open battery settings'**
+  String get setupBackgroundBattery;
+
+  /// The same page: under the first button, which opens TotalDrop's app info; what to do there
+  ///
+  /// In en, this message translates to:
+  /// **'On TotalDrop\'s app info page, open Battery and allow unrestricted use. The names of these settings differ from phone to phone.'**
+  String get setupBackgroundBatteryHint;
+
+  /// The same page: heading of the second step on Xiaomi, Redmi and POCO phones, which add a battery saver of their own
+  ///
+  /// In en, this message translates to:
+  /// **'{maker} phones have a battery saver of their own'**
+  String setupBackgroundMaker(String maker);
+
+  /// The same page: what to choose in the maker's battery saver; "No restrictions" is the label on Xiaomi phones, use the label those phones show in your language
+  ///
+  /// In en, this message translates to:
+  /// **'Open TotalDrop\'s battery saver too and choose \"No restrictions\". If the phone has Autostart, turn it on for TotalDrop.'**
+  String get setupBackgroundMakerBody;
+
+  /// The same page: button that opens the maker's battery saver for TotalDrop
+  ///
+  /// In en, this message translates to:
+  /// **'Open TotalDrop\'s battery saver'**
+  String get setupBackgroundMakerOpen;
+
+  /// The same page: button that opens the maker's Autostart page (Xiaomi)
+  ///
+  /// In en, this message translates to:
+  /// **'Open Autostart'**
+  String get setupBackgroundAutostart;
+
+  /// The same page at first start: skip it for now
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get setupBackgroundSkip;
+
+  /// Settings: heading of the section about background transfers
+  ///
+  /// In en, this message translates to:
+  /// **'Background transfers'**
+  String get settingsBackground;
+
+  /// Settings: button that opens the background transfers page
+  ///
+  /// In en, this message translates to:
+  /// **'Battery settings'**
+  String get settingsBackgroundOpen;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'bn',
+    'cs',
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'fa',
+    'fi',
+    'fr',
+    'he',
+    'hi',
+    'hu',
+    'id',
+    'it',
+    'ja',
+    'ko',
+    'ms',
+    'nb',
+    'nl',
+    'pl',
+    'pt',
+    'ro',
+    'ru',
+    'sv',
+    'sw',
+    'th',
+    'tr',
+    'uk',
+    'ur',
+    'vi',
+    'zh',
+  ].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when language+script codes are specified.
+  switch (locale.languageCode) {
+    case 'zh':
+      {
+        switch (locale.scriptCode) {
+          case 'Hans':
+            return AppLocalizationsZhHans();
+          case 'Hant':
+            return AppLocalizationsZhHant();
+        }
+        break;
+      }
+  }
+
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'pt':
+      {
+        switch (locale.countryCode) {
+          case 'BR':
+            return AppLocalizationsPtBr();
+          case 'PT':
+            return AppLocalizationsPtPt();
+        }
+        break;
+      }
+  }
+
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'bn':
+      return AppLocalizationsBn();
+    case 'cs':
+      return AppLocalizationsCs();
+    case 'da':
+      return AppLocalizationsDa();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'el':
+      return AppLocalizationsEl();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
+    case 'fa':
+      return AppLocalizationsFa();
+    case 'fi':
+      return AppLocalizationsFi();
+    case 'fr':
+      return AppLocalizationsFr();
+    case 'he':
+      return AppLocalizationsHe();
+    case 'hi':
+      return AppLocalizationsHi();
+    case 'hu':
+      return AppLocalizationsHu();
+    case 'id':
+      return AppLocalizationsId();
+    case 'it':
+      return AppLocalizationsIt();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'ko':
+      return AppLocalizationsKo();
+    case 'ms':
+      return AppLocalizationsMs();
+    case 'nb':
+      return AppLocalizationsNb();
+    case 'nl':
+      return AppLocalizationsNl();
+    case 'pl':
+      return AppLocalizationsPl();
+    case 'pt':
+      return AppLocalizationsPt();
+    case 'ro':
+      return AppLocalizationsRo();
+    case 'ru':
+      return AppLocalizationsRu();
+    case 'sv':
+      return AppLocalizationsSv();
+    case 'sw':
+      return AppLocalizationsSw();
+    case 'th':
+      return AppLocalizationsTh();
+    case 'tr':
+      return AppLocalizationsTr();
+    case 'uk':
+      return AppLocalizationsUk();
+    case 'ur':
+      return AppLocalizationsUr();
+    case 'vi':
+      return AppLocalizationsVi();
+    case 'zh':
+      return AppLocalizationsZh();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
+}

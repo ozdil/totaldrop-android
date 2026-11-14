@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+     SPDX-License-Identifier: GPL-3.0-or-later -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <path
+        android:fillColor="#0E1621"
+        android:pathData="M0,0h320v180h-320z" />
+    <path
+        android:fillColor="#5AD1B8"
+        android:pathData="M160,38 L196,86 L174,86 L174,132 L146,132 L146,86 L124,86 Z" />
+    <path
+        android:fillColor="#94E2D5"
+        android:pathData="M116,142h88v8h-88z" />
+</vector>

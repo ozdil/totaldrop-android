@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 The TotalDrop Contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Isolated Cargo configuration for 32-bit ARMv7 Android (armeabi-v7a / armv7-linux-androideabi)
+# targeting legacy 32-bit ARM phones and 32-bit Android TV / Google TV sticks.
+# Usage:
+#   RUSTUP_TOOLCHAIN=stable cargo build --locked --release \
+#     -p rust_lib_totaldrop --target armv7-linux-androideabi \
+#     --config target-armeabi-v7a/cargo-config.toml
+
+[build]
+target = "armv7-linux-androideabi"
+
+[target.armv7-linux-androideabi]
+# Note: Android NDK prefixes the 32-bit Clang wrapper with armv7a-linux-androideabi<API>-clang.
+linker = "armv7a-linux-androideabi31-clang"
+ar = "llvm-ar"
+rustflags = [
+    "-C", "link-arg=-Wl,--hash-style=both",
+    "-C", "link-arg=-Wl,--build-id=sha1",
+    "-C", "target-feature=+v7,+thumb-mode,+neon",
+]
