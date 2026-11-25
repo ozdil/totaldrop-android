@@ -1726,6 +1726,226 @@ void main() {
     );
 
     testWidgets(
+      'Tabletop posture re-measures origin after a pushed route animation '
+      'completes (#635 review)',
+      (tester) async {
+        const size = Size(800, 720);
+        const hinge = Rect.fromLTWH(0, 348, 800, 24);
+        const features = [
+          DisplayFeature(
+            bounds: hinge,
+            type: DisplayFeatureType.hinge,
+            state: DisplayFeatureState.postureHalfOpened,
+          ),
+        ];
+        await tester.binding.setSurfaceSize(size);
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+
+        await tester.pumpWidget(
+          _wrap(
+            size: size,
+            features: features,
+            home: Builder(
+              builder: (context) => Scaffold(
+                body: Center(
+                  child: FilledButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const Scaffold(
+                            body: Column(
+                              children: [
+                                SizedBox(height: 60, child: Text('Top banner')),
+                                Expanded(
+                                  child: AdaptivePaneLayout(
+                                    primary: ColoredBox(
+                                      key: Key('pushed_top_pane'),
+                                      color: Colors.red,
+                                    ),
+                                    secondary: ColoredBox(
+                                      key: Key('pushed_bottom_pane'),
+                                      color: Colors.blue,
+                                    ),
+                                    singlePane: ColoredBox(
+                                      key: Key('pushed_single_pane'),
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Push route'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Push route'));
+        await tester.pumpAndSettle();
+
+        final topRect = tester.getRect(
+          find.byKey(const Key('pushed_top_pane')),
+        );
+        final bottomRect = tester.getRect(
+          find.byKey(const Key('pushed_bottom_pane')),
+        );
+        expect(topRect.top, closeTo(60, 0.5));
+        expect(topRect.bottom, closeTo(hinge.top, 0.5));
+        expect(bottomRect.top, closeTo(hinge.bottom, 0.5));
+        expect(bottomRect.bottom, closeTo(size.height, 0.5));
+      },
+    );
+
+    testWidgets(
+      'Book posture keeps settled origin after pushing and popping a route '
+      '(secondaryAnimation) and after a cancelled predictive back gesture '
+      '(#635 review)',
+      (tester) async {
+        const size = Size(840, 600);
+        const hinge = Rect.fromLTWH(408, 0, 24, 600);
+        const features = [
+          DisplayFeature(
+            bounds: hinge,
+            type: DisplayFeatureType.hinge,
+            state: DisplayFeatureState.postureHalfOpened,
+          ),
+        ];
+        await tester.binding.setSurfaceSize(size);
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+
+        late NavigatorState nav;
+        final leadingWidth = ValueNotifier<double>(0);
+        addTearDown(leadingWidth.dispose);
+
+        await tester.pumpWidget(
+          _wrap(
+            size: size,
+            features: features,
+            home: Builder(
+              builder: (context) {
+                nav = Navigator.of(context);
+                return Scaffold(
+                  body: Row(
+                    children: [
+                      const SizedBox(width: 40),
+                      Expanded(
+                        child: AdaptivePaneLayout(
+                          primary: Center(
+                            key: const Key('home_left_pane'),
+                            child: FilledButton(
+                              onPressed: () {
+                                nav.push(
+                                  MaterialPageRoute<void>(
+                                    builder: (_) =>
+                                        ValueListenableBuilder<double>(
+                                          valueListenable: leadingWidth,
+                                          builder: (_, w, _) => Scaffold(
+                                            body: Row(
+                                              children: [
+                                                SizedBox(width: w),
+                                                const Expanded(
+                                                  child: AdaptivePaneLayout(
+                                                    primary: ColoredBox(
+                                                      key: Key(
+                                                        'detail_left_pane',
+                                                      ),
+                                                      color: Colors.orange,
+                                                    ),
+                                                    secondary: ColoredBox(
+                                                      key: Key(
+                                                        'detail_right_pane',
+                                                      ),
+                                                      color: Colors.purple,
+                                                    ),
+                                                    singlePane: ColoredBox(
+                                                      key: Key('detail_single'),
+                                                      color: Colors.teal,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                  ),
+                                );
+                              },
+                              child: const Text('Open detail'),
+                            ),
+                          ),
+                          secondary: const ColoredBox(
+                            key: Key('home_right_pane'),
+                            color: Colors.blue,
+                          ),
+                          singlePane: const ColoredBox(
+                            key: Key('home_single_pane'),
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Push a MaterialPageRoute (activating secondaryAnimation on home).
+        await tester.tap(find.text('Open detail'));
+        await tester.pumpAndSettle();
+
+        // Simulate a cancelled predictive back gesture on the pushed route
+        // while its horizontal origin shifts, then confirm it re-measures
+        // origin.dx after returning to AnimationStatus.completed.
+        final detailRoute = ModalRoute.of(
+          tester.element(find.byKey(const Key('detail_left_pane'))),
+        )!;
+        detailRoute.handleStartBackGesture(progress: 0.25);
+        leadingWidth.value = 48;
+        await tester.pump(const Duration(milliseconds: 50));
+        detailRoute.handleCancelBackGesture();
+        await tester.pumpAndSettle();
+
+        final detailLeft = tester.getRect(
+          find.byKey(const Key('detail_left_pane')),
+        );
+        final detailRight = tester.getRect(
+          find.byKey(const Key('detail_right_pane')),
+        );
+        expect(detailLeft.left, closeTo(48, 0.5));
+        expect(detailLeft.right, closeTo(hinge.left, 0.5));
+        expect(detailRight.left, closeTo(hinge.right, 0.5));
+        expect(detailRight.right, closeTo(size.width, 0.5));
+
+        // Pop back to home (exercising secondaryAnimation reverse -> dismissed)
+        // and verify home's origin settles cleanly at dx = 40 without locking a
+        // mid-transition slide offset.
+        nav.pop();
+        await tester.pumpAndSettle();
+
+        final leftRect = tester.getRect(
+          find.byKey(const Key('home_left_pane')),
+        );
+        final rightRect = tester.getRect(
+          find.byKey(const Key('home_right_pane')),
+        );
+        expect(leftRect.left, closeTo(40, 0.5));
+        expect(leftRect.right, closeTo(hinge.left, 0.5));
+        expect(rightRect.left, closeTo(hinge.right, 0.5));
+        expect(rightRect.right, closeTo(size.width, 0.5));
+      },
+    );
+
+    testWidgets(
       'Tabletop posture puts Done and Try again controls below the horizontal '
       'fold on Send Done, Receive Declined, and Failed stages',
       (tester) async {

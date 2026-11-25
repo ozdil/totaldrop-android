@@ -387,22 +387,75 @@ class _OriginAwareBuilderState extends State<_OriginAwareBuilder> {
   Offset? _lastFallback;
   Offset? _measuredOrigin;
   bool _measureScheduled = false;
+  Animation<double>? _routeAnim;
+  Animation<double>? _secondaryRouteAnim;
 
-  void _scheduleMeasure(Offset fallback) {
+  void _attachRouteAnimations(ModalRoute<dynamic>? route) {
+    final primary = route?.animation;
+    if (_routeAnim != primary) {
+      _routeAnim?.removeStatusListener(_onPrimaryAnimationStatus);
+      _routeAnim = primary;
+      _routeAnim?.addStatusListener(_onPrimaryAnimationStatus);
+    }
+    final secondary = route?.secondaryAnimation;
+    if (_secondaryRouteAnim != secondary) {
+      _secondaryRouteAnim?.removeStatusListener(_onSecondaryAnimationStatus);
+      _secondaryRouteAnim = secondary;
+      _secondaryRouteAnim?.addStatusListener(_onSecondaryAnimationStatus);
+    }
+  }
+
+  bool get _routeSettled {
+    final primary = _routeAnim;
+    if (primary != null && primary.status != AnimationStatus.completed) {
+      return false;
+    }
+    final secondary = _secondaryRouteAnim;
+    if (secondary != null && secondary.status != AnimationStatus.dismissed) {
+      return false;
+    }
+    return true;
+  }
+
+  void _onPrimaryAnimationStatus(AnimationStatus status) {
+    if (!mounted) return;
+    if (status == AnimationStatus.completed && _routeSettled) {
+      _scheduleMeasure();
+      WidgetsBinding.instance.ensureVisualUpdate();
+    }
+  }
+
+  void _onSecondaryAnimationStatus(AnimationStatus status) {
+    if (!mounted) return;
+    if (status == AnimationStatus.dismissed && _routeSettled) {
+      _scheduleMeasure();
+      WidgetsBinding.instance.ensureVisualUpdate();
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _attachRouteAnimations(ModalRoute.of(context));
+  }
+
+  @override
+  void dispose() {
+    _attachRouteAnimations(null);
+    super.dispose();
+  }
+
+  void _scheduleMeasure() {
     if (_measureScheduled) return;
     _measureScheduled = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _measureScheduled = false;
-      if (!mounted) return;
-      final routeAnim = ModalRoute.of(context)?.animation;
-      if (routeAnim != null && routeAnim.status != AnimationStatus.completed) {
-        return;
-      }
+      if (!mounted || !_routeSettled) return;
       final box = context.findRenderObject();
       if (box is! RenderBox || !box.hasSize || !box.attached) return;
       final actual = box.localToGlobal(Offset.zero);
       if (!actual.dx.isFinite || !actual.dy.isFinite) return;
-      final current = _measuredOrigin ?? fallback;
+      final current = _measuredOrigin ?? _lastFallback ?? Offset.zero;
       if ((actual - current).distance > 0.5) {
         setState(() => _measuredOrigin = actual);
       }
@@ -416,7 +469,7 @@ class _OriginAwareBuilderState extends State<_OriginAwareBuilder> {
       _lastFallback = fallback;
       _measuredOrigin = null;
     }
-    _scheduleMeasure(fallback);
+    _scheduleMeasure();
     final origin = _measuredOrigin ?? fallback;
     return LayoutBuilder(
       builder: (context, constraints) =>
