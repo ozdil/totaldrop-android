@@ -90,7 +90,7 @@ jobs:
       - name: Verify upload certificate fingerprint
         env:
           # SHA-256 of the upload certificate registered with Google Play.
-          EXPECTED: "42:65:75:4D:25:74:3A:5A:EA:AC:CA:92:4F:03:6A:DB:F3:77:9E:95:FB:6A:B9:87:17:50:59:3C:9C:7F:B0:FB"
+          EXPECTED: "36:49:0B:05:DB:63:AC:B8:E7:B8:46:F7:84:D2:1F:83:6B:E0:A9:74:5E:DF:A8:1D:BD:F0:51:9F:83:3D:F0:35"
         run: |
           for artifact in \
             build/app/outputs/bundle/release/app-release.aab \
